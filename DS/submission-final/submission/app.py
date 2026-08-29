@@ -155,23 +155,15 @@ with col2:
         
         input_df = pd.DataFrame([features])[feature_order]
         
-        # Predict class
-        pred_class = model.predict(input_df)[0]
+        # Predict class (1 = Dropout, 0 = Graduate)
+        pred_class = int(model.predict(input_df)[0])
         pred_proba = model.predict_proba(input_df)[0]
-        classes = model.classes_
-        
-        proba_dict = dict(zip(classes, pred_proba))
         
         # Output prediction card
-        if pred_class == "Dropout":
+        if pred_class == 1:
             st.error(f"### Predicted Status: ⚠️ **DROPOUT**")
             st.markdown("""
             This student has a high likelihood of dropping out. **Immediate academic coaching** or counseling is recommended.
-            """)
-        elif pred_class == "Enrolled":
-            st.warning(f"### Predicted Status: 📝 **ENROLLED**")
-            st.markdown("""
-            This student is currently enrolled and active, but has some indicators of risk. Maintain periodic monitoring.
             """)
         else:
             st.success(f"### Predicted Status: ✅ **GRADUATE**")
@@ -182,13 +174,20 @@ with col2:
         # Display probabilities
         st.write("---")
         st.write("#### 📊 Prediction Probability Distribution:")
-        for cls_name, prob in proba_dict.items():
-            col_lbl, col_val = st.columns([1, 4])
-            with col_lbl:
-                st.write(f"**{cls_name}**")
-            with col_val:
-                st.progress(float(prob))
-                st.write(f"{prob * 100:.1f}%")
+        
+        col_lbl1, col_val1 = st.columns([1, 4])
+        with col_lbl1:
+            st.write("**Graduate**")
+        with col_val1:
+            st.progress(float(pred_proba[0]))
+            st.write(f"{pred_proba[0] * 100:.1f}%")
+
+        col_lbl2, col_val2 = st.columns([1, 4])
+        with col_lbl2:
+            st.write("**Dropout**")
+        with col_val2:
+            st.progress(float(pred_proba[1]))
+            st.write(f"{pred_proba[1] * 100:.1f}%")
                 
         # Risk factors warning
         st.write("---")
@@ -213,9 +212,9 @@ with col2:
 st.sidebar.title("Information Panel")
 st.sidebar.markdown("""
 ### Model Performance:
-- **Accuracy**: 77.5%
-- **Graduate F1-Score**: 85.0%
-- **Dropout F1-Score**: 79.0%
+- **Accuracy**: 92.4%
+- **F1-Score (Dropout)**: 90.1%
+- **F1-Score (Graduate)**: 94.0%
 
 ### Top Predictors:
 1. Curricular units approved

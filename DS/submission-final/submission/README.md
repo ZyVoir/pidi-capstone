@@ -26,13 +26,15 @@ Dataset performa siswa diperoleh secara resmi dari:
 
 ### 2. Setup Environment (`venv`)
 
+**Spesifikasi Versi**: Proyek ini menggunakan **Python 3.10.x** (disarankan menggunakan Python 3.10 atau versi 3.9+). 
+
 Gunakan Virtual Environment untuk memastikan kestabilan dan isolasi library dependencies:
 
 ```bash
 # Buka direktori proyek
 cd submission/
 
-# Membuat Virtual Environment bernama 'venv'
+# Membuat Virtual Environment bernama 'venv' menggunakan python3.10
 python3 -m venv venv
 
 # Mengaktifkan Virtual Environment
@@ -113,10 +115,10 @@ Aplikasi ini juga telah dihosting secara publik pada Streamlit Community Cloud d
 
 ### 1. Ringkasan Performa Model Machine Learning
 Model Machine Learning yang dilatih menghasilkan performa evaluasi sebagai berikut (selaras 100% dengan eksekusi `notebook.ipynb`):
-- **Accuracy**: 0.7537 (75.37%)
-- **Precision**: 0.7637 (76.37%)
-- **Recall**: 0.7537 (75.37%)
-- **F1-Score**: 0.7561 (75.61%)
+- **Accuracy**: 0.9242 (92.42%)
+- **Precision**: 0.9241 (92.41%)
+- **Recall**: 0.9242 (92.42%)
+- **F1-Score**: 0.9240 (92.40%)
 
 ### 2. Ringkasan Insight Utama EDA
 - **Faktor Finansial (UKT & Hutang)**: Pembayaran UKT tepat waktu menjadi pembatas paling krusial terhadap keberlanjutan siswa. Mahasiswa yang tidak membayar UKT tepat waktu (*Tuition_fees_up_to_date = 0*) menunjukkan tingkat dropout yang sangat tinggi.

@@ -51,10 +51,10 @@ Model: **Random Forest Classifier** (`class_weight='balanced'`, `n_estimators=10
 
 | Metric | Score |
 | :--- | :--- |
-| Accuracy | 75.37% |
-| Weighted Precision | 76.37% |
-| Weighted Recall | 75.37% |
-| Weighted F1-Score | 75.61% |
+| Accuracy | 92.42% |
+| Weighted Precision | 92.41% |
+| Weighted Recall | 92.42% |
+| Weighted F1-Score | 92.40% |
 
 ---
 
