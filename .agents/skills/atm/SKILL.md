@@ -11,6 +11,37 @@ The **ATM (Amati, Tiru, Modifikasi)** skill guides the agent to observe a refere
 
 ---
 
+## 🔴 MANDATORY FIRST STEP — Pre-Invocation Questions
+
+**Before doing ANY work**, the agent MUST ask the user the following two questions interactively:
+
+### 1. Username / Prefix
+> "What is your **username or full name**? This will be used as the prefix on all output files that require one (e.g. dashboard PNGs named `{username}_dicoding-dashboard.png`, model files, or any submission artifact that requires a personal identifier)."
+
+- Store the answer as `{USERNAME}`.
+- Apply `{USERNAME}` as the prefix wherever a file name or artifact label calls for a personal identifier.
+- Example: `William_dicoding-dashboard.png`, `william_notebook.ipynb`, etc.
+
+### 2. Styling Preference
+> "What **visual styling** would you like for the generated assets (dashboard PNG, charts, visuals)? You can pick one of the suggestions below or describe your own theme:"
+>
+> - 🌸 **Pastel Dreams** — Soft lavender, mint, powder blue, peach
+> - 🌑 **Modern Dark Mode / Glassmorphism** — Deep navy with neon highlights
+> - ⬜ **Sleek Monochrome** — Minimalist grayscale with a single accent color
+> - 🍂 **Warm Earthy** — Terracotta, beige, sage green, warm ivory
+> - 🌌 **Retro Synthwave / Cyberpunk** — Dark violet, neon magenta, cyan, bright yellow
+> - ❄️ **Nordic Clean Light** — Crisp white/ice-blue, deep indigo, teal, slate grey
+> - 🎨 **Custom** — Describe your own palette or mood board
+
+- Store the chosen style as `{STYLE_THEME}`.
+- Apply `{STYLE_THEME}` throughout **all** visual assets generated in this ATM run.
+- If the user says "surprise me" or "anything", dynamically pick one of the above themes — but **never default to the same one twice in a row**.
+
+> [!IMPORTANT]
+> Do NOT proceed to AMATI → TIRU → MODIFIKASI until both `{USERNAME}` and `{STYLE_THEME}` have been confirmed.
+
+---
+
 ## The 3 Core Pillars
 
 ```
@@ -31,36 +62,38 @@ The **ATM (Amati, Tiru, Modifikasi)** skill guides the agent to observe a refere
 - Verify that tests pass, data outputs line up, and submission criteria are completely satisfied.
 
 ### 3. MODIFIKASI (Modify & Differentiate)
-Every time this skill is invoked, dynamically vary the execution so the output feels custom and non-generic:
+Every time this skill is invoked, dynamically vary the execution so the output feels custom and non-generic.
+Use `{USERNAME}` and `{STYLE_THEME}` collected in the Pre-Invocation Questions above.
 
-#### A. Wording & Natural Phrasing ( Bahasa / English )
-- Avoid using canned text, cookie-cutter templates, or identical explanations.
+#### A. File Naming & Prefix
+- All output assets that require a personal identifier MUST be prefixed with `{USERNAME}`.
+  - Dashboard PNG: `{USERNAME}_dicoding-dashboard.png`
+  - Notebook (if applicable): `{USERNAME}_notebook.ipynb`
+  - Any submission artifact requiring a user label follows the same pattern.
+
+#### B. Wording & Natural Phrasing (Bahasa / English)
+- Avoid canned text, cookie-cutter templates, or identical explanations.
 - Vary title phrasing, markdown headings, summary sections, and narrative commentary across iterations.
 - Change variable names, docstrings, function descriptions, and commit message wording while preserving meaning.
 
-#### B. Code Style & Architecture
+#### C. Code Style & Architecture
 - Alternate programming paradigms or refactoring styles (e.g., modular functions vs. class-based pipelines, list comprehensions vs. explicit loops, custom helper abstractions).
 - Use distinct variable naming conventions (e.g., snake_case aliases, descriptive domain-specific names).
 - Organize imports, functions, and modular script layouts cleanly but uniquely.
 
-#### C. Visual Design & Graphic Aesthetics (PNG / Dashboards / Visuals)
-Whenever generating visual assets (e.g. Matplotlib, Seaborn, PIL graphics, or Web UIs):
-- **ANY Color Scheme & Theme**: Do NOT stick to a single default look. Dynamically pick or craft **ANY** color scheme every time—literally anything goes as long as it is nicely presented, visually stunning, and highly readable:
-  * *Pastel Dreams* (Soft lavender, mint, powder blue, peach background)
-  * *Modern Dark Mode / Glassmorphism* (Deep navy/slate with vibrant neon highlights)
-  * *Sleek Monochrome / Grayscale* (Minimalist dark/light monochrome with single accent color)
-  * *Warm Earthy / Minimalist* (Terracotta, beige, sage green, warm ivory background)
-  * *Retro Synthwave / Cyberpunk* (Dark violet background, neon magenta, cyan, bright yellow)
-  * *Nordic Clean Light* ( Crisp white/ice-blue background, deep indigo, teal, slate grey)
-  * *Or ANY custom harmonious color palette!*
-- **Layout & Typography Variations**: Re-arrange KPI card placement, font typography (bold headers, custom padding), grid structure (2x3 vs 3x2, split vertical vs horizontal header), and chart styles (e.g., horizontal bar vs vertical bar, donut vs pie chart, violin vs boxplot).
+#### D. Visual Design & Graphic Aesthetics (PNG / Dashboards / Visuals)
+Whenever generating visual assets (e.g. Matplotlib, Seaborn, PIL graphics, or Web UIs), apply the `{STYLE_THEME}` chosen at invocation time:
+
+- **Color Scheme**: Use the palette from `{STYLE_THEME}` as the primary design language for all charts, KPI cards, backgrounds, and text colors.
+- **Layout & Typography Variations**: Re-arrange KPI card placement, font typography (bold headers, custom padding), grid structure (2×3 vs 3×2, split vertical vs horizontal header), and chart styles (horizontal bar vs vertical, donut vs pie, violin vs boxplot).
 - **Unique Design Signature**: Add custom card borders, subtle gradient accents, or custom icon/legend styling so no two generated images look identical.
 
 ---
 
 ## Execution Workflow
 
-1. **Observe Phase**: Read requirements and document the target specification.
-2. **Replicate Phase**: Build the core logic to guarantee exact output correctness.
-3. **Differentiate Phase**: Apply the **Modifikasi** rules above (Wording + Code Structure + Unique Visual Design Palette).
-4. **Validation Phase**: Run unit tests / execution checks to ensure functional accuracy while verifying distinct visual & stylistic uniqueness.
+1. **Pre-Invocation**: Ask for `{USERNAME}` and `{STYLE_THEME}`. Confirm before proceeding.
+2. **Observe Phase**: Read requirements and document the target specification.
+3. **Replicate Phase**: Build the core logic to guarantee exact output correctness.
+4. **Differentiate Phase**: Apply the **Modifikasi** rules above — prefix files with `{USERNAME}`, apply `{STYLE_THEME}` to all visuals, vary wording and code structure.
+5. **Validation Phase**: Run unit tests / execution checks to ensure functional accuracy while verifying distinct visual & stylistic uniqueness.
