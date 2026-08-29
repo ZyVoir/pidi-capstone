@@ -246,13 +246,15 @@ st.set_page_config(
 )
 
 # Load model
-MODEL_PATH = "model/student_model.pkl"
+# Resolve path relative to this script directory to ensure compatibility with Streamlit Cloud
+curr_dir = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(curr_dir, "model", "student_model.pkl")
 @st.cache_resource
 def load_model():
     if os.path.exists(MODEL_PATH):
         return joblib.load(MODEL_PATH)
     else:
-        st.error(f"Model file not found at {MODEL_PATH}. Please run the model training first.")
+        st.error(f"Model file not found at {MODEL_PATH}. Current working directory is: {os.getcwd()}")
         return None
 
 model = load_model()
