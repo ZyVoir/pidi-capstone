@@ -54,7 +54,6 @@ if __name__ == "__main__":
         res = predict_employee(args.file)
         print(json.dumps(res, indent=2))
     else:
-        # Sample employee demonstration
         sample_employee = {
             "Age": 29,
             "BusinessTravel": "Travel_Frequently",
