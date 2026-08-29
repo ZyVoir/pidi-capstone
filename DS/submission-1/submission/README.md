@@ -10,7 +10,7 @@ PT Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang berdiri sej
 - Bagaimana membangun model *Machine Learning* yang mampu memprediksi potensi *attrition* karyawan secara akurat untuk pencegahan dini?
 
 ### Cakupan Proyek
-- Exploratory Data Analysis (EDA) pada dataset karyawan Jaya Jaya Maju.
+- Exploratory Data Analysis (EDA) pada dataset karyawan Jaya Jaya Maju (Univariate & Multivariate).
 - Pengembangan Business Dashboard eksekutif (`William_dicoding-dashboard.png` dan Metabase Instance `metabase.db.mv.db`).
 - Pelatihan model Machine Learning (*Random Forest Classifier*) dan penyimpanan artefak model (`model/attrition_model.pkl`).
 - Pembuatan script inferensi mandiri (`prediction.py`).
@@ -20,9 +20,15 @@ PT Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang berdiri sej
 
 ## Persiapan Proyek
 
-Berikut adalah petunjuk lengkap dan sistematis untuk menyiapkan environment dan menjalankan proyek data science ini.
+Berikut adalah petunjuk lengkap dan sistematis untuk menyiapkan environment, memperoleh data, dan menjalankan proyek data science ini.
 
-### 1. Membuat dan Mengaktifkan Virtual Environment (`venv`)
+### 1. Sumber Data (Dataset)
+
+Dataset karyawan yang digunakan dalam analisis ini diperoleh secara resmi dari:
+- **Tautan Unduhan Dataset**: [Dicoding Academy Employee Dataset (GitHub)](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee)
+- **Nama File**: `employee_data.csv` (berkas ini sudah dilampirkan dan disimpan di dalam folder `data/employee_data.csv` pada direktori ini untuk kemudahan verifikasi dan akses).
+
+### 2. Membuat dan Mengaktifkan Virtual Environment (`venv`)
 
 Gunakan Virtual Environment untuk memastikan kestabilan dan isolasi library dependencies:
 
@@ -44,7 +50,7 @@ source venv/bin/activate
 # venv\Scripts\Activate.ps1
 ```
 
-### 2. Menginstal Library Dependencies
+### 3. Menginstal Library Dependencies
 
 Setelah Virtual Environment aktif, instal seluruh library yang diperlukan:
 

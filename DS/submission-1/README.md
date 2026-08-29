@@ -18,10 +18,11 @@ submission-1/
 ├── Artifact/                         # Reference materials & reviewer feedback
 │   ├── context.txt                   # Parsed submission guidance
 │   ├── Instruksi Submission...html   # Original Dicoding instructions page
-│   └── Review_1/                     # Reviewer feedback (Submission 1 rejection notes)
+│   ├── Review_1/                     # Reviewer feedback (Submission 1 rejection notes - Review 1)
+│   └── Review_3.txt                  # Reviewer feedback (Submission 1 rejection notes - Review 3)
 └── submission/                       # 📦 Final submission files
     ├── data/
-    │   └── employee_data.csv         # Source dataset (1,470 rows, 35 columns)
+    │   └── employee_data.csv         # Source dataset (1,470 rows, 35 columns) - [Dataset Source](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee)
     ├── model/
     │   └── attrition_model.pkl       # Trained Random Forest pipeline
     ├── notebook.ipynb                # Executed data science notebook

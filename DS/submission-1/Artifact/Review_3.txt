@@ -1,0 +1,22 @@
+Catatan dari Reviewer (Review 3)
+
+Halo, zyvoir!
+
+Terimakasih telah mengirimkan tugas Submission Pertama: Menyelesaikan Permasalahan Human Resources. Setelah kami bedah dan telisik secara komprehensif, ternyata ada kriteria wajib yang masih belum Anda penuhi. 
+
+Berikut beberapa catatan dari kami untuk memperbaiki proyek Anda.
+
+Kriteria 2: Menjalankan Seluruh Proses dalam Proyek Data Science
+Notebook
+Kamu masih belum melakukan seluruh proses Exploratory Data Analysis (EDA). EDA merupakan tahap mengeksplorasi data guna mendapatkan insight atau informasi data seperti distribusi data, tren data, korelasi data dan sebagainya. Ada beberapa jenis EDA yang bisa kamu lakukan seperti:
+- EDA Univariate
+- EDA Multivariate
+- EDA Numerikal
+- EDA Kategorikal
+- dsb
+
+README.md
+Pada bagian Persiapan Proyek, pastikan kamu menyampaikan instruksi yang lengkap dan sistematis agar proyek dapat dijalankan oleh orang lain tanpa hambatan. Saat ini instruksi yang kamu berikan belum lengkap, silahkan tambahkan instruksi berikut:   
+- Melampirkan Sumber Data: Pada bagian ini kamu diharuskan menuliskan tautan (link) tempat kamu mengambil dataset. Hal ini bertujuan agar pembaca dapat dengan mudah mengetahui sumber data yang digunakan serta memverifikasi atau mengakses dataset yang sama.
+
+Silakan perbaiki terlebih dahulu proyek Anda dengan mengikuti catatan di atas untuk bisa lulus dari tugas submission ini. Tetap semangat! Jangan lupa untuk segera submit kembali, ya. Kami tunggu.

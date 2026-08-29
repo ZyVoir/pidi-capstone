@@ -332,6 +332,99 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 print(f"Train Shape: {X_train.shape} | Test Shape: {X_test.shape}")
 """))
 
+# Exploratory Data Analysis (EDA) Cells
+cells.append(nbf.v4.new_markdown_cell("""## 2. Exploratory Data Analysis (EDA)
+
+Tahap ini bertujuan untuk mengeksplorasi dataset guna menemukan pola, tren, dan korelasi antara fitur-fitur karyawan dengan tingkat attrition (karyawan keluar).
+Kita akan melakukan:
+1. **EDA Univariate**: Menganalisis distribusi masing-masing variabel (target Attrition, variabel numerik utama, dan variabel kategorik penting).
+2. **EDA Bivariate & Multivariate**: Menganalisis hubungan antara dua atau lebih variabel, khususnya korelasi dengan status Attrition karyawan.
+"""))
+
+cells.append(nbf.v4.new_markdown_cell("""### A. EDA Univariate (Analisis Tunggal Variabel)
+Kita analisis distribusi statistik variabel numerik utama seperti Age, MonthlyIncome, dan YearsAtCompany, serta variabel kategorik utama.
+"""))
+
+cells.append(nbf.v4.new_code_cell("""# 1. Analisis Univariate Numerik
+print("=== Statistik Deskriptif Variabel Numerik ===")
+print(labeled_df[['Age', 'MonthlyIncome', 'YearsAtCompany', 'YearsInCurrentRole']].describe())
+
+# Visualisasi Distribusi Numerik
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+sns.histplot(labeled_df['Age'], kde=True, ax=axes[0], color='skyblue')
+axes[0].set_title('Distribusi Usia Karyawan')
+
+sns.histplot(labeled_df['MonthlyIncome'], kde=True, ax=axes[1], color='salmon')
+axes[1].set_title('Distribusi Monthly Income')
+
+sns.histplot(labeled_df['YearsAtCompany'], kde=True, ax=axes[2], color='lightgreen')
+axes[2].set_title('Distribusi Masa Kerja (Years At Company)')
+plt.tight_layout()
+plt.show()
+"""))
+
+cells.append(nbf.v4.new_code_cell("""# 2. Analisis Univariate Kategorik (Proporsi Target & Variabel Kunci)
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+sns.countplot(data=labeled_df, x='Attrition', ax=axes[0], palette='Set2')
+axes[0].set_title('Distribusi Target (Attrition)')
+for p in axes[0].patches:
+    axes[0].annotate(f'{p.get_height()}', (p.get_x() + p.get_width() / 2., p.get_height()),
+                ha='center', va='center', xytext=(0, 5), textcoords='offset points')
+
+sns.countplot(data=labeled_df, x='OverTime', ax=axes[1], palette='Set2')
+axes[1].set_title('Status Lembur (OverTime)')
+
+sns.countplot(data=labeled_df, x='BusinessTravel', ax=axes[2], palette='Set2')
+axes[2].set_title('Frekuensi Perjalanan Dinas')
+plt.tight_layout()
+plt.show()
+"""))
+
+cells.append(nbf.v4.new_markdown_cell("""### B. EDA Bivariate & Multivariate (Analisis Hubungan Antar Variabel)
+Menganalisis bagaimana tingkat Attrition bervariasi berdasarkan OverTime, Departemen, Tingkat Jabatan, dan Monthly Income.
+"""))
+
+cells.append(nbf.v4.new_code_cell("""# 1. Korelasi Antara Variabel Kategorik (OverTime, Department) dengan Attrition
+fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+
+# OverTime vs Attrition
+sns.countplot(data=labeled_df, x='OverTime', hue='Attrition', ax=axes[0], palette='Set1')
+axes[0].set_title('Tingkat Attrition berdasarkan Status Lembur')
+
+# Department vs Attrition
+sns.countplot(data=labeled_df, x='Department', hue='Attrition', ax=axes[1], palette='Set1')
+axes[1].set_title('Tingkat Attrition berdasarkan Departemen Karyawan')
+plt.xticks(rotation=15)
+plt.tight_layout()
+plt.show()
+"""))
+
+cells.append(nbf.v4.new_code_cell("""# 2. Hubungan Variabel Numerik (Monthly Income, Job Level) dengan Attrition
+fig, axes = plt.subplots(1, 2, figsize=(18, 6))
+
+# Monthly Income Disparity by Job Level and Attrition
+sns.boxplot(data=labeled_df, x='JobLevel', y='MonthlyIncome', hue='Attrition', ax=axes[0], palette='Set1')
+axes[0].set_title('Monthly Income per Job Level berdasarkan Attrition')
+
+# Korelasi antar Fitur Numerik Utama & Attrition
+corr_cols = ['Age', 'DailyRate', 'DistanceFromHome', 'Education', 'EnvironmentSatisfaction', 
+             'JobInvolvement', 'JobLevel', 'JobSatisfaction', 'MonthlyIncome', 
+             'NumCompaniesWorked', 'PercentSalaryHike', 'PerformanceRating', 'RelationshipSatisfaction', 
+             'StockOptionLevel', 'TotalWorkingYears', 'TrainingTimesLastYear', 'WorkLifeBalance', 
+             'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'YearsWithCurrManager', 'Attrition']
+corr_matrix = labeled_df[corr_cols].corr()
+sns.heatmap(corr_matrix[['Attrition']].sort_values(by='Attrition', ascending=False), 
+            annot=True, cmap='coolwarm', fmt=".2f", ax=axes[1])
+axes[1].set_title('Korelasi Fitur Numerik dengan Attrition')
+plt.tight_layout()
+plt.show()
+"""))
+
+cells.append(nbf.v4.new_markdown_cell("""## 3. Model Training & Evaluation
+
+Pada bagian ini, kita akan melatih model *Random Forest Classifier* dengan pembobotan kelas seimbang (`class_weight='balanced'`) dan mengevaluasi kinerjanya menggunakan data testing.
+"""))
+
 cells.append(nbf.v4.new_code_cell("""# Model Training & Evaluation
 preprocessor = ColumnTransformer(
     transformers=[
@@ -371,7 +464,7 @@ joblib.dump(model, 'model/attrition_model.pkl')
 print("Model saved to model/attrition_model.pkl")
 """))
 
-conclusion_markdown = f"""## 2. Kesimpulan & Rekomendasi Action Items
+conclusion_markdown = f"""## 4. Kesimpulan & Rekomendasi Action Items
 
 ### Ringkasan Hasil Performa Model Machine Learning
 - **Accuracy**: {acc_val:.4f} ({acc_val*100:.2f}%)
@@ -409,7 +502,7 @@ PT Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang berdiri sej
 - Bagaimana membangun model *Machine Learning* yang mampu memprediksi potensi *attrition* karyawan secara akurat untuk pencegahan dini?
 
 ### Cakupan Proyek
-- Exploratory Data Analysis (EDA) pada dataset karyawan Jaya Jaya Maju.
+- Exploratory Data Analysis (EDA) pada dataset karyawan Jaya Jaya Maju (Univariate & Multivariate).
 - Pengembangan Business Dashboard eksekutif (`William_dicoding-dashboard.png` dan Metabase Instance `metabase.db.mv.db`).
 - Pelatihan model Machine Learning (*Random Forest Classifier*) dan penyimpanan artefak model (`model/attrition_model.pkl`).
 - Pembuatan script inferensi mandiri (`prediction.py`).
@@ -419,9 +512,15 @@ PT Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang berdiri sej
 
 ## Persiapan Proyek
 
-Berikut adalah petunjuk lengkap dan sistematis untuk menyiapkan environment dan menjalankan proyek data science ini.
+Berikut adalah petunjuk lengkap dan sistematis untuk menyiapkan environment, memperoleh data, dan menjalankan proyek data science ini.
 
-### 1. Membuat dan Mengaktifkan Virtual Environment (`venv`)
+### 1. Sumber Data (Dataset)
+
+Dataset karyawan yang digunakan dalam analisis ini diperoleh secara resmi dari:
+- **Tautan Unduhan Dataset**: [Dicoding Academy Employee Dataset (GitHub)](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee)
+- **Nama File**: `employee_data.csv` (berkas ini sudah dilampirkan dan disimpan di dalam folder `data/employee_data.csv` pada direktori ini untuk kemudahan verifikasi dan akses).
+
+### 2. Membuat dan Mengaktifkan Virtual Environment (`venv`)
 
 Gunakan Virtual Environment untuk memastikan kestabilan dan isolasi library dependencies:
 
@@ -443,7 +542,7 @@ source venv/bin/activate
 # venv\\Scripts\\Activate.ps1
 ```
 
-### 2. Menginstal Library Dependencies
+### 3. Menginstal Library Dependencies
 
 Setelah Virtual Environment aktif, instal seluruh library yang diperlukan:
 
