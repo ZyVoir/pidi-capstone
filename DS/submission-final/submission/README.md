@@ -107,7 +107,7 @@ Aplikasi dapat diakses melalui browser di alamat `http://localhost:8501`.
 
 ### 2. Akses Streamlit Community Cloud (Remote URL):
 Aplikasi ini juga telah dihosting secara publik pada Streamlit Community Cloud dan dapat diakses kapan saja melalui tautan berikut:
-- **Tautan Streamlit App**: [Jaya Jaya Institut - Student Retention Classifier](https://william-student-retention.streamlit.app) *(Contoh link representatif)*
+- **Tautan Streamlit App**: [Jaya Jaya Institut - Student Retention Classifier](https://pidi-capstone-qrcmtocanq3t2edwdncam8.streamlit.app/) *(Live Deployment)*
 
 ---
 

@@ -78,7 +78,7 @@ streamlit run app.py
 ```
 
 ### Accessing the Streamlit Cloud version:
-- **Streamlit App URL**: [Jaya Jaya Institut Student Retention App](https://william-student-retention.streamlit.app) *(Contoh link)*
+- **Streamlit App URL**: [Jaya Jaya Institut Student Retention App](https://pidi-capstone-qrcmtocanq3t2edwdncam8.streamlit.app/) *(Live Deployment)*
 
 ---
 
