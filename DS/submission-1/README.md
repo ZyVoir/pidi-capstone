@@ -1,7 +1,7 @@
 # Submission 1: Menyelesaikan Permasalahan Human Resources — PT Jaya Jaya Maju
 
 > **Course**: Belajar Penerapan Data Science — Dicoding Indonesia  
-> **Status**: Re-submitted (addressing reviewer feedback)
+> **Status**: Approved (Lulus / Sudah di-approve) ✅
 
 ---
 

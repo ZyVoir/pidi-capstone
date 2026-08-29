@@ -11,11 +11,14 @@ This repository is designed to host multi-stage capstone submissions across Data
 ```text
 pidi-capstone/
 ├── DS/                          # Data Science Track
-│   └── submission-1/            # Submission 1: HR Attrition Analysis & Business Dashboard
-│       ├── Artifact/            # Reference context and guidelines
-│       ├── submission/          # Submission source code, model, notebook & dashboard visual
-│       ├── submission.zip       # Final submission archive
-│       └── README.md            # ← Submission 1 overview & quick start
+│   ├── submission-1/            # Submission 1: HR Attrition (Approved)
+│   │   ├── submission/
+│   │   ├── submission.zip
+│   │   └── README.md
+│   └── submission-final/        # Submission 2: Student Dropout (Final Submission)
+│       ├── submission/          # Code, model, notebook, database & Streamlit app
+│       ├── submission.zip       # Final submission ZIP archive
+│       └── README.md            # ← Final submission overview & quick start
 ├── ML/                          # (Planned) Machine Learning Track
 └── .agents/
     └── skills/
@@ -27,8 +30,8 @@ pidi-capstone/
 ## 🚀 Track Roadmap & Future Submissions
 
 ### 1. Data Science Track (`DS/`)
-* **[Submission 1 — HR Attrition](./DS/submission-1/README.md)** (`DS/submission-1/`): Covers EDA, executive business dashboard (`William_dicoding-dashboard.png`), Metabase instance (`metabase.db.mv.db`), machine learning risk model (`prediction.py`), and full documentation. → [View Details](./DS/submission-1/README.md)
-* **Submission 2 / Final Submission**: Upcoming final submission for the Data Science module, organized as a subsequent folder under `DS/`.
+* **[Submission 1 — HR Attrition (Approved/Lulus)](./DS/submission-1/README.md)** (`DS/submission-1/`): Covers EDA, executive business dashboard (`William_dicoding-dashboard.png`), Metabase instance (`metabase.db.mv.db`), machine learning risk model (`prediction.py`), and full documentation. [Status: Approved / Sudah di-approve] → [View Details](./DS/submission-1/README.md)
+* **[Submission 2 — Student Dropout (Final Submission)](./DS/submission-final/README.md)** (`DS/submission-final/`): Covers full EDA, Metabase dashboard (`William_dicoding-dashboard.png`), database instance (`metabase.db.mv.db`, `students.db`), Streamlit app (`app.py`), Random Forest model (`student_model.pkl`), and actionable recommendations. [Status: Completed / Ready for review] → [View Details](./DS/submission-final/README.md)
 
 ### 2. Machine Learning Track (`ML/`)
 * **Future Expansion**: Open possibility to add a dedicated `ML/` directory for pure Machine Learning capstone modules.

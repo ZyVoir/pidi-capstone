@@ -1,0 +1,73 @@
+# Submission Akhir: Menyelesaikan Permasalahan Institusi Pendidikan — Jaya Jaya Institut
+
+## Pengantar
+Proyek ini merupakan Submission Akhir (Proyek Kedua) dari kelas Belajar Penerapan Data Science di Dicoding Indonesia. Tugas ini meminta Anda untuk menyelesaikan permasalahan tingkat dropout siswa yang tinggi di perguruan tinggi "Jaya Jaya Institut" dengan menggunakan data science, visualisasi dashboard, dan deployment model machine learning dalam bentuk Streamlit prototype.
+
+---
+
+## Background
+Jaya Jaya Institut merupakan institusi perguruan tinggi yang berdiri sejak tahun 2000. Meskipun reputasi lulusannya sangat baik, perguruan tinggi ini menghadapi kendala tingginya siswa yang tidak menyelesaikan pendidikan (dropout). 
+
+Tingginya angka dropout berdampak buruk pada institusi. Pihak manajemen ingin mendeteksi sedini mungkin siswa yang berisiko dropout agar dapat diberikan bimbingan khusus.
+
+- **Dataset Target**: [Students Performance Dataset (GitHub)](https://github.com/dicodingacademy/dicoding_dataset/blob/main/students_performance/README.md)
+
+---
+
+## Kriteria Submission
+
+Terdapat **5 kriteria utama** yang harus dipenuhi:
+
+### Kriteria 1: Menggunakan Templat Proyek yang Telah Disediakan
+- Gunakan templat proyek akhir resmi: [Template Proyek Akhir (GitHub)](https://github.com/dicodingacademy/a590-Belajar-Penerapan-Data-Science/tree/a590_proyek_akhir/a590_proyek_akhir)
+- Lengkapi dokumen Markdown (`.md`) dengan rapi.
+
+### Kriteria 2: Menjalankan Seluruh Proses dalam Proyek Data Science
+- Lakukan seluruh tahapan data science mulai dari *Business Understanding* hingga *Deployment*.
+- Deploy model machine learning ke **Streamlit Community Cloud** agar bisa diakses secara remote.
+- Dokumentasikan seluruh proses dan sertakan **Kesimpulan (Conclusion)** di dokumen Markdown (`.md`).
+
+### Kriteria 3: Membuat Minimal Satu Dashboard
+- Dashboard untuk membantu memahami data & memonitor performa siswa (serta faktor penyebab dropout).
+- Tool utama: **Metabase** (sertakan kredensial default `root@mail.com` / `root123` di berkas Markdown). Ekspor berkas database instance container menggunakan perintah:
+  ```bash
+  docker cp metabase:/metabase.db/metabase.db.mv.db ./
+  ```
+- Tool alternatif: **Tableau Public** atau **Looker Studio** (pastikan menyertakan link akses publik).
+- Dashboard tidak boleh hanya berisi tabel data; harus ada visualisasi interaktif yang mudah dipahami.
+
+### Kriteria 4: Membuat Minimal Satu Solusi Machine Learning Siap Pakai (Streamlit Prototype)
+- Kembangkan prototype web app menggunakan **Streamlit** (misalnya `app.py`).
+- Hubungkan prototype ke **Streamlit Community Cloud** dan sertakan tautan (link) aplikasinya di berkas Markdown (`.md`).
+- Cantumkan petunjuk instalasi dan cara menjalankan aplikasi Streamlit di Markdown.
+
+### Kriteria 5: Merekomendasikan Action Items
+- Tuliskan rekomendasi tindakan nyata (action items) yang strategis berdasarkan hasil analisis data di berkas Markdown (`.md`).
+
+---
+
+## Penilaian & Bintang (Rating 1 - 5)
+
+Untuk memperoleh nilai bintang tinggi (4-5), terapkan saran-saran berikut:
+1. **Saran 1 (Video)**: Lampirkan video penjelasan singkat (maks. 5 menit) di folder submission dengan format nama file `username_dicoding-video`, berisi penjelasan solusi ML, dashboard, dan kesimpulan proyek.
+2. **Saran 2 (Dokumentasi Notebook)**: Berikan dokumentasi menggunakan text cell secara lengkap di notebook (`.ipynb`) untuk menjelaskan setiap alur analisis.
+3. **Saran 3 (Aesthetics & Visualisasi)**: Buat visualisasi data yang baik dengan menerapkan prinsip desain, kontras, dan integritas data.
+4. **Saran 4 (UI Streamlit)**: Buat prototype sistem Streamlit dengan tampilan UI/UX yang menarik, rapi, dan mudah digunakan.
+
+---
+
+## Ketentuan Pengiriman Berkas ZIP
+
+Kirimkan berkas submission dalam satu folder berformat **ZIP** dengan struktur direktori yang disarankan sebagai berikut:
+
+```text
+submission/
+├── model/                  # Folder penyimpanan model machine learning (*.pkl, dll)
+├── notebook.ipynb          # Jupyter / Colab Notebook yang sudah dijalankan lengkap
+├── app.py                  # Script Python utama untuk prototype Streamlit
+├── README.md               # Berkas Markdown dokumentasi proyek, link Streamlit & dashboard
+├── username_dicoding-dashboard.png  # Screenshot dashboard
+├── username_dicoding-video.mp4      # Video presentasi (jika menerapkan Saran 1)
+├── metabase.db.mv.db       # Database Metabase (jika menggunakan Metabase)
+└── requirements.txt        # Library dependencies untuk analisis data & Streamlit
+```

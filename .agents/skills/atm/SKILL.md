@@ -96,4 +96,9 @@ Whenever generating visual assets (e.g. Matplotlib, Seaborn, PIL graphics, or We
 2. **Observe Phase**: Read requirements and document the target specification.
 3. **Replicate Phase**: Build the core logic to guarantee exact output correctness.
 4. **Differentiate Phase**: Apply the **Modifikasi** rules above — prefix files with `{USERNAME}`, apply `{STYLE_THEME}` to all visuals, vary wording and code structure.
-5. **Validation Phase**: Run unit tests / execution checks to ensure functional accuracy while verifying distinct visual & stylistic uniqueness.
+5. **Validation & Name Matching Phase**:
+   - Run unit tests / execution checks to ensure functional accuracy.
+   - **Consolidated Name Check**: Before zipping the files for submission, inspect every text file (e.g. `README.md`, `notebook.ipynb`, code scripts, and configuration metadata) inside the submission directory.
+   - Ensure *every single occurrence* of the developer name or placeholder matches the `{USERNAME}` exactly. No other dummy names or mismatched names must be present in comments, cells, or markdown headings. Correct any discrepancies.
+   - Package/zip the files only after this verification passes.
+
