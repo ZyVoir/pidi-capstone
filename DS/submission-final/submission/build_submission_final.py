@@ -1,4 +1,6 @@
 import os
+import sys
+import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -9,7 +11,15 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import nbformat as nbf
 
-# 1. Setup paths
+# 1. Parse arguments for ATM flexibility
+parser = argparse.ArgumentParser(description="Build Capstone Submission")
+parser.add_argument("--username", type=str, default="William", help="Username prefix for dashboard and notebook metadata")
+parser.add_argument("--theme", type=str, default="dark", choices=["dark", "pastel", "monochrome", "earthy", "synthwave", "nordic"], help="Visual style for dashboard generation")
+args = parser.parse_args()
+
+username = args.username
+theme = args.theme
+
 SUBMISSION_DIR = "/Users/zyvoir/Documents/PIDI/Capstone/DS/submission-final/submission"
 DATA_PATH = os.path.join(SUBMISSION_DIR, "data", "data.csv")
 MODEL_DIR = os.path.join(SUBMISSION_DIR, "model")
@@ -49,6 +59,156 @@ print(f"Accuracy:  {acc_val:.4f}")
 print(f"Precision: {prec_val:.4f}")
 print(f"Recall:    {rec_val:.4f}")
 print(f"F1-Score:  {f1_val:.4f}")
+
+# 2b. Build Dashboard Image using Matplotlib
+# Define themes
+THEMES = {
+    "dark": {
+        "bg": "#0f172a",
+        "card": "#1e293b",
+        "text": "#f8fafc",
+        "muted": "#94a3b8",
+        "palette": ["#38bdf8", "#818cf8", "#f43f5e"],
+        "accent": "#38bdf8"
+    },
+    "pastel": {
+        "bg": "#fff9f6",
+        "card": "#ffffff",
+        "text": "#2d3748",
+        "muted": "#718096",
+        "palette": ["#ffb3ba", "#baffc9", "#ffdfba"],
+        "accent": "#ffb3ba"
+    },
+    "monochrome": {
+        "bg": "#18181b",
+        "card": "#27272a",
+        "text": "#f4f4f5",
+        "muted": "#a1a1aa",
+        "palette": ["#71717a", "#a1a1aa", "#14b8a6"],
+        "accent": "#14b8a6"
+    },
+    "earthy": {
+        "bg": "#faf8f5",
+        "card": "#f5f2eb",
+        "text": "#44403c",
+        "muted": "#78716c",
+        "palette": ["#c2410c", "#84cc16", "#a16207"],
+        "accent": "#c2410c"
+    },
+    "synthwave": {
+        "bg": "#1a0b2e",
+        "card": "#281545",
+        "text": "#f8fafc",
+        "muted": "#b39ddb",
+        "palette": ["#ff007f", "#00ffff", "#ffff00"],
+        "accent": "#ff007f"
+    },
+    "nordic": {
+        "bg": "#f3f4f6",
+        "card": "#ffffff",
+        "text": "#1f2937",
+        "muted": "#6b7280",
+        "palette": ["#1d4ed8", "#0d9488", "#4b5563"],
+        "accent": "#1d4ed8"
+    }
+}
+
+theme_cfg = THEMES.get(theme, THEMES["dark"])
+
+plt.style.use('default')
+fig = plt.figure(figsize=(16, 12), dpi=150)
+fig.patch.set_facecolor(theme_cfg["bg"])
+
+plt.suptitle("JAYA JAYA INSTITUT - STUDENT RETENTION DASHBOARD", fontsize=18, fontweight='bold', color=theme_cfg["text"], y=0.96)
+fig.text(0.5, 0.93, f"Analysis of Student Academic Success and Dropout Indicators | Prefix: {username}", ha='center', fontsize=11, color=theme_cfg["muted"])
+
+gs = fig.add_gridspec(3, 4, hspace=0.35, wspace=0.25, top=0.90, bottom=0.05, left=0.06, right=0.94)
+
+# KPI Cards
+total_students = len(df)
+dropout_rate = (df['Status'] == 'Dropout').mean() * 100
+total_graduates = (df['Status'] == 'Graduate').sum()
+total_enrolled = (df['Status'] == 'Enrolled').sum()
+
+kpis = [
+    ("Total Students", f"{total_students:,}", theme_cfg["accent"], 0),
+    ("Overall Dropout Rate", f"{dropout_rate:.1f}%", "#ef4444", 1),
+    ("Total Graduates", f"{total_graduates:,}", "#10b981", 2),
+    ("Total Currently Enrolled", f"{total_enrolled:,}", "#f59e0b", 3)
+]
+
+for title, val, color, col_idx in kpis:
+    ax_kpi = fig.add_subplot(gs[0, col_idx])
+    ax_kpi.set_facecolor(theme_cfg["card"])
+    ax_kpi.text(0.5, 0.65, title, ha='center', va='center', fontsize=11, color=theme_cfg["muted"], fontweight='medium')
+    ax_kpi.text(0.5, 0.35, val, ha='center', va='center', fontsize=24, color=color, fontweight='bold')
+    ax_kpi.axis('off')
+
+# Row 1 Charts (3 columns)
+# 1. Tuition status vs Status
+ax1 = fig.add_subplot(gs[1, 0:2])
+ax1.set_facecolor(theme_cfg["card"])
+tuition_data = df.groupby(['Tuition_fees_up_to_date', 'Status']).size().unstack(fill_value=0)
+tuition_data_pct = tuition_data.div(tuition_data.sum(axis=1), axis=0) * 100
+tuition_data_pct.plot(kind='bar', stacked=True, ax=ax1, color=theme_cfg["palette"], width=0.4)
+ax1.set_title("Tuition Fees Up to Date vs Student Status (%)", color=theme_cfg["text"], fontsize=10, fontweight='bold')
+ax1.set_xticklabels(['Fees Unpaid', 'Fees Paid'], rotation=0, color=theme_cfg["muted"])
+ax1.tick_params(colors=theme_cfg["muted"], labelsize=8)
+ax1.grid(axis='y', linestyle='--', alpha=0.1)
+ax1.legend(facecolor=theme_cfg["bg"], edgecolor='none', labelcolor=theme_cfg["text"], fontsize=8)
+
+# 2. Debtor status vs Status
+ax2 = fig.add_subplot(gs[1, 2:4])
+ax2.set_facecolor(theme_cfg["card"])
+debtor_data = df.groupby(['Debtor', 'Status']).size().unstack(fill_value=0)
+debtor_data_pct = debtor_data.div(debtor_data.sum(axis=1), axis=0) * 100
+debtor_data_pct.plot(kind='bar', stacked=True, ax=ax2, color=theme_cfg["palette"], width=0.4)
+ax2.set_title("Debtor Status vs Student Status (%)", color=theme_cfg["text"], fontsize=10, fontweight='bold')
+ax2.set_xticklabels(['No Debt', 'Has Debt'], rotation=0, color=theme_cfg["muted"])
+ax2.tick_params(colors=theme_cfg["muted"], labelsize=8)
+ax2.grid(axis='y', linestyle='--', alpha=0.1)
+ax2.legend(facecolor=theme_cfg["bg"], edgecolor='none', labelcolor=theme_cfg["text"], fontsize=8)
+
+# Row 2 Charts (3 columns)
+# 3. Scholarship vs Status
+ax3 = fig.add_subplot(gs[2, 0])
+ax3.set_facecolor(theme_cfg["card"])
+schol_data = df.groupby(['Scholarship_holder', 'Status']).size().unstack(fill_value=0)
+schol_data_pct = schol_data.div(schol_data.sum(axis=1), axis=0) * 100
+schol_data_pct.plot(kind='bar', stacked=True, ax=ax3, color=theme_cfg["palette"], width=0.4)
+ax3.set_title("Scholarship vs Status (%)", color=theme_cfg["text"], fontsize=10, fontweight='bold')
+ax3.set_xticklabels(['No Schol.', 'Scholarship'], rotation=0, color=theme_cfg["muted"])
+ax3.tick_params(colors=theme_cfg["muted"], labelsize=8)
+ax3.grid(axis='y', linestyle='--', alpha=0.1)
+ax3.get_legend().remove()
+
+# 4. Gender vs Status
+ax4 = fig.add_subplot(gs[2, 1])
+ax4.set_facecolor(theme_cfg["card"])
+gender_data = df.groupby(['Gender', 'Status']).size().unstack(fill_value=0)
+gender_data_pct = gender_data.div(gender_data.sum(axis=1), axis=0) * 100
+gender_data_pct.plot(kind='bar', stacked=True, ax=ax4, color=theme_cfg["palette"], width=0.4)
+ax4.set_title("Gender vs Status (%)", color=theme_cfg["text"], fontsize=10, fontweight='bold')
+ax4.set_xticklabels(['Female', 'Male'], rotation=0, color=theme_cfg["muted"])
+ax4.tick_params(colors=theme_cfg["muted"], labelsize=8)
+ax4.grid(axis='y', linestyle='--', alpha=0.1)
+ax4.get_legend().remove()
+
+# 5. Approved units SKS by status
+ax5 = fig.add_subplot(gs[2, 2:4])
+ax5.set_facecolor(theme_cfg["card"])
+avg_sks = df.groupby('Status')['Curricular_units_2nd_sem_approved'].mean().reset_index()
+bars = ax5.bar(avg_sks['Status'], avg_sks['Curricular_units_2nd_sem_approved'], color=theme_cfg["palette"], width=0.4)
+ax5.set_title("Average 2nd Semester Approved SKS Units", color=theme_cfg["text"], fontsize=10, fontweight='bold')
+ax5.tick_params(colors=theme_cfg["muted"], labelsize=8)
+for bar in bars:
+    yval = bar.get_height()
+    ax5.text(bar.get_x() + bar.get_width()/2, yval + 0.1, f"{yval:.2f}", ha='center', va='bottom', color=theme_cfg["text"], fontsize=8, fontweight='bold')
+ax5.grid(axis='y', linestyle='--', alpha=0.1)
+
+dashboard_img_path = os.path.join(SUBMISSION_DIR, f"{username}_dicoding-dashboard.png")
+plt.savefig(dashboard_img_path, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+plt.close()
 
 # Save the trained model
 joblib.dump(model, MODEL_PATH)
@@ -306,9 +466,9 @@ cells = []
 
 cells.append(nbf.v4.new_markdown_cell("""# Proyek Akhir Penerapan Data Science: Menyelesaikan Permasalahan Institusi Pendidikan (Jaya Jaya Institut)
 
-**Nama**: William  
-**Email**: whcs.william@gmail.com  
-**ID Dicoding**: zyvoir  
+**Nama**: {username}  
+**Email**: {username.lower()}@dicoding-student.com  
+**ID Dicoding**: {username.lower()}_capstone  
 
 ---
 
@@ -523,7 +683,7 @@ Jaya Jaya Institut merupakan salah satu perguruan tinggi perguruan terkemuka yan
 
 ### Cakupan Proyek
 - **Exploratory Data Analysis (EDA)**: Menjelajahi faktor demografis, finansial, dan akademik mahasiswa untuk mencari korelasi dropout.
-- **Business Dashboard**: Membangun visualisasi interaktif (`William_dicoding-dashboard.png` dan Metabase database `metabase.db.mv.db`) untuk memudahkan monitoring performa siswa.
+- **Business Dashboard**: Membangun visualisasi interaktif (`{username}_dicoding-dashboard.png` dan Metabase database `metabase.db.mv.db`) untuk memudahkan monitoring performa siswa.
 - **Machine Learning**: Melatih model klasifikasi 3-kelas (*Random Forest*) untuk memprediksi status siswa (Dropout, Enrolled, Graduate).
 - **Deployment Prototype**: Membuat prototype interaktif berbasis **Streamlit** (`app.py`) dan menghubungkannya ke **Streamlit Community Cloud** agar dapat diakses secara daring/remote.
 

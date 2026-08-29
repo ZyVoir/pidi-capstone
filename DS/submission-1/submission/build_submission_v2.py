@@ -13,11 +13,23 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import nbformat as nbf
 
+import sys
+import argparse
+
+# Parse arguments for ATM flexibility
+parser = argparse.ArgumentParser(description="Build Capstone Submission")
+parser.add_argument("--username", type=str, default="William", help="Username prefix for dashboard and notebook metadata")
+parser.add_argument("--theme", type=str, default="dark", choices=["dark", "pastel", "monochrome", "earthy", "synthwave", "nordic"], help="Visual style for dashboard generation")
+args = parser.parse_args()
+
+username = args.username
+theme = args.theme
+
 SUBMISSION_DIR = "/Users/zyvoir/Documents/PIDI/Capstone/DS/submission-1/submission"
 DATA_PATH = os.path.join(SUBMISSION_DIR, "data", "employee_data.csv")
 MODEL_DIR = os.path.join(SUBMISSION_DIR, "model")
 MODEL_PATH = os.path.join(MODEL_DIR, "attrition_model.pkl")
-DASHBOARD_PATH = os.path.join(SUBMISSION_DIR, "William_dicoding-dashboard.png")
+DASHBOARD_PATH = os.path.join(SUBMISSION_DIR, f"{username}_dicoding-dashboard.png")
 NOTEBOOK_PATH = os.path.join(SUBMISSION_DIR, "notebook.ipynb")
 PREDICTION_PATH = os.path.join(SUBMISSION_DIR, "prediction.py")
 README_PATH = os.path.join(SUBMISSION_DIR, "README.md")
@@ -75,85 +87,140 @@ print(f"ROC-AUC:   {auc_val:.4f}")
 joblib.dump(model_pipeline, MODEL_PATH)
 
 # 2. Build Dashboard Image
-plt.style.use('seaborn-v0_8-whitegrid' if 'seaborn-v0_8-whitegrid' in plt.style.available else 'default')
-fig = plt.figure(figsize=(16, 12), dpi=150)
-fig.patch.set_facecolor('#0f172a')
+# 2. Build Dashboard Image
+# Define themes
+THEMES = {
+    "dark": {
+        "bg": "#0f172a",
+        "card": "#1e293b",
+        "text": "#f8fafc",
+        "muted": "#94a3b8",
+        "palette": ["#38bdf8", "#818cf8", "#f43f5e"],
+        "accent": "#38bdf8"
+    },
+    "pastel": {
+        "bg": "#fff9f6",
+        "card": "#ffffff",
+        "text": "#2d3748",
+        "muted": "#718096",
+        "palette": ["#ffb3ba", "#baffc9", "#ffdfba"],
+        "accent": "#ffb3ba"
+    },
+    "monochrome": {
+        "bg": "#18181b",
+        "card": "#27272a",
+        "text": "#f4f4f5",
+        "muted": "#a1a1aa",
+        "palette": ["#71717a", "#a1a1aa", "#14b8a6"],
+        "accent": "#14b8a6"
+    },
+    "earthy": {
+        "bg": "#faf8f5",
+        "card": "#f5f2eb",
+        "text": "#44403c",
+        "muted": "#78716c",
+        "palette": ["#c2410c", "#84cc16", "#a16207"],
+        "accent": "#c2410c"
+    },
+    "synthwave": {
+        "bg": "#1a0b2e",
+        "card": "#281545",
+        "text": "#f8fafc",
+        "muted": "#b39ddb",
+        "palette": ["#ff007f", "#00ffff", "#ffff00"],
+        "accent": "#ff007f"
+    },
+    "nordic": {
+        "bg": "#f3f4f6",
+        "card": "#ffffff",
+        "text": "#1f2937",
+        "muted": "#6b7280",
+        "palette": ["#1d4ed8", "#0d9488", "#4b5563"],
+        "accent": "#1d4ed8"
+    }
+}
 
-plt.suptitle("PT JAYA JAYA MAJU - HR ATTRITION EXECUTIVE DASHBOARD", fontsize=20, fontweight='bold', color='#f8fafc', y=0.96)
-fig.text(0.5, 0.93, "Analysis of Employee Turnover Drivers & Predictive Monitoring | Department of Human Resources", ha='center', fontsize=11, color='#94a3b8')
+theme_cfg = THEMES.get(theme, THEMES["dark"])
+
+plt.style.use('default')
+fig = plt.figure(figsize=(16, 12), dpi=150)
+fig.patch.set_facecolor(theme_cfg["bg"])
+
+plt.suptitle("PT JAYA JAYA MAJU - HR ATTRITION EXECUTIVE DASHBOARD", fontsize=20, fontweight='bold', color=theme_cfg["text"], y=0.96)
+fig.text(0.5, 0.93, f"Analysis of Employee Turnover Drivers & Predictive Monitoring | Department of Human Resources | Prefix: {username}", ha='center', fontsize=11, color=theme_cfg["muted"])
 
 gs = fig.add_gridspec(3, 3, hspace=0.35, wspace=0.25, top=0.90, bottom=0.05, left=0.06, right=0.94)
 
 ax_kpi1 = fig.add_subplot(gs[0, 0])
-ax_kpi1.set_facecolor('#1e293b')
-ax_kpi1.text(0.5, 0.65, "Total Employees", ha='center', va='center', fontsize=12, color='#94a3b8', fontweight='medium')
-ax_kpi1.text(0.5, 0.35, f"{len(df):,}", ha='center', va='center', fontsize=26, color='#38bdf8', fontweight='bold')
+ax_kpi1.set_facecolor(theme_cfg["card"])
+ax_kpi1.text(0.5, 0.65, "Total Employees", ha='center', va='center', fontsize=12, color=theme_cfg["muted"], fontweight='medium')
+ax_kpi1.text(0.5, 0.35, f"{len(df):,}", ha='center', va='center', fontsize=26, color=theme_cfg["accent"], fontweight='bold')
 ax_kpi1.axis('off')
 
 ax_kpi2 = fig.add_subplot(gs[0, 1])
-ax_kpi2.set_facecolor('#1e293b')
+ax_kpi2.set_facecolor(theme_cfg["card"])
 att_rate = (labeled_df['Attrition'].sum() / len(labeled_df)) * 100
-ax_kpi2.text(0.5, 0.65, "Overall Attrition Rate", ha='center', va='center', fontsize=12, color='#94a3b8', fontweight='medium')
+ax_kpi2.text(0.5, 0.65, "Overall Attrition Rate", ha='center', va='center', fontsize=12, color=theme_cfg["muted"], fontweight='medium')
 ax_kpi2.text(0.5, 0.35, f"{att_rate:.1f}%", ha='center', va='center', fontsize=26, color='#ef4444', fontweight='bold')
 ax_kpi2.axis('off')
 
 ax_kpi3 = fig.add_subplot(gs[0, 2])
-ax_kpi3.set_facecolor('#1e293b')
+ax_kpi3.set_facecolor(theme_cfg["card"])
 ot_att = (labeled_df[labeled_df['OverTime'] == 'Yes']['Attrition'].sum() / len(labeled_df[labeled_df['OverTime'] == 'Yes'])) * 100
-ax_kpi3.text(0.5, 0.65, "Attrition in OverTime Employees", ha='center', va='center', fontsize=12, color='#94a3b8', fontweight='medium')
+ax_kpi3.text(0.5, 0.65, "Attrition in OverTime Employees", ha='center', va='center', fontsize=12, color=theme_cfg["muted"], fontweight='medium')
 ax_kpi3.text(0.5, 0.35, f"{ot_att:.1f}%", ha='center', va='center', fontsize=26, color='#f59e0b', fontweight='bold')
 ax_kpi3.axis('off')
 
 ax1 = fig.add_subplot(gs[1, 0])
-ax1.set_facecolor('#1e293b')
+ax1.set_facecolor(theme_cfg["card"])
 dept_att = labeled_df.groupby('Department')['Attrition'].mean().reset_index()
 dept_att['AttritionRate'] = dept_att['Attrition'] * 100
-bars1 = ax1.bar(dept_att['Department'], dept_att['AttritionRate'], color=['#38bdf8', '#818cf8', '#f43f5e'], edgecolor='none', width=0.5)
-ax1.set_title("Attrition Rate by Department (%)", color='#f8fafc', fontsize=11, fontweight='bold', pad=10)
-ax1.set_ylabel("Attrition Rate (%)", color='#94a3b8', fontsize=9)
-ax1.tick_params(colors='#94a3b8', labelsize=8)
+bars1 = ax1.bar(dept_att['Department'], dept_att['AttritionRate'], color=theme_cfg["palette"], edgecolor='none', width=0.5)
+ax1.set_title("Attrition Rate by Department (%)", color=theme_cfg["text"], fontsize=11, fontweight='bold', pad=10)
+ax1.set_ylabel("Attrition Rate (%)", color=theme_cfg["muted"], fontsize=9)
+ax1.tick_params(colors=theme_cfg["muted"], labelsize=8)
 for bar in bars1:
     yval = bar.get_height()
-    ax1.text(bar.get_x() + bar.get_width()/2, yval + 0.5, f"{yval:.1f}%", ha='center', va='bottom', color='#f8fafc', fontsize=8, fontweight='bold')
+    ax1.text(bar.get_x() + bar.get_width()/2, yval + 0.5, f"{yval:.1f}%", ha='center', va='bottom', color=theme_cfg["text"], fontsize=8, fontweight='bold')
 ax1.set_ylim(0, max(dept_att['AttritionRate']) + 5)
-ax1.grid(axis='y', linestyle='--', alpha=0.2)
+ax1.grid(axis='y', linestyle='--', alpha=0.1)
 
 ax2 = fig.add_subplot(gs[1, 1])
-ax2.set_facecolor('#1e293b')
+ax2.set_facecolor(theme_cfg["card"])
 ot_df = labeled_df.groupby(['OverTime', 'Attrition']).size().unstack(fill_value=0)
 ot_pct = ot_df.div(ot_df.sum(axis=1), axis=0) * 100
-ot_pct.plot(kind='bar', stacked=True, ax=ax2, color=['#10b981', '#f43f5e'], width=0.45)
-ax2.set_title("OverTime vs Employee Attrition (%)", color='#f8fafc', fontsize=11, fontweight='bold', pad=10)
-ax2.set_xlabel("OverTime Status", color='#94a3b8', fontsize=9)
-ax2.set_ylabel("Percentage (%)", color='#94a3b8', fontsize=9)
-ax2.tick_params(colors='#94a3b8', labelsize=8, rotation=0)
-ax2.legend(['Stayed (0)', 'Left (1)'], facecolor='#0f172a', edgecolor='none', labelcolor='#f8fafc', fontsize=8)
-ax2.grid(axis='y', linestyle='--', alpha=0.2)
+ot_pct.plot(kind='bar', stacked=True, ax=ax2, color=[theme_cfg["palette"][0], '#f43f5e'], width=0.45)
+ax2.set_title("OverTime vs Employee Attrition (%)", color=theme_cfg["text"], fontsize=11, fontweight='bold', pad=10)
+ax2.set_xlabel("OverTime Status", color=theme_cfg["muted"], fontsize=9)
+ax2.set_ylabel("Percentage (%)", color=theme_cfg["muted"], fontsize=9)
+ax2.tick_params(colors=theme_cfg["muted"], labelsize=8, rotation=0)
+ax2.legend(['Stayed (0)', 'Left (1)'], facecolor=theme_cfg["bg"], edgecolor='none', labelcolor=theme_cfg["text"], fontsize=8)
+ax2.grid(axis='y', linestyle='--', alpha=0.1)
 
 ax3 = fig.add_subplot(gs[1, 2])
-ax3.set_facecolor('#1e293b')
-sns.boxplot(data=labeled_df, x='JobLevel', y='MonthlyIncome', hue='Attrition', palette=['#38bdf8', '#f43f5e'], ax=ax3)
-ax3.set_title("Monthly Income Disparity by Job Level", color='#f8fafc', fontsize=11, fontweight='bold', pad=10)
-ax3.set_xlabel("Job Level", color='#94a3b8', fontsize=9)
-ax3.set_ylabel("Monthly Income ($)", color='#94a3b8', fontsize=9)
-ax3.tick_params(colors='#94a3b8', labelsize=8)
-ax3.legend(['Stayed (0)', 'Left (1)'], facecolor='#0f172a', edgecolor='none', labelcolor='#f8fafc', fontsize=8)
-ax3.grid(axis='y', linestyle='--', alpha=0.2)
+ax3.set_facecolor(theme_cfg["card"])
+sns.boxplot(data=labeled_df, x='JobLevel', y='MonthlyIncome', hue='Attrition', palette=[theme_cfg["palette"][0], '#f43f5e'], ax=ax3)
+ax3.set_title("Monthly Income Disparity by Job Level", color=theme_cfg["text"], fontsize=11, fontweight='bold', pad=10)
+ax3.set_xlabel("Job Level", color=theme_cfg["muted"], fontsize=9)
+ax3.set_ylabel("Monthly Income ($)", color=theme_cfg["muted"], fontsize=9)
+ax3.tick_params(colors=theme_cfg["muted"], labelsize=8)
+ax3.legend(['Stayed (0)', 'Left (1)'], facecolor=theme_cfg["bg"], edgecolor='none', labelcolor=theme_cfg["text"], fontsize=8)
+ax3.grid(axis='y', linestyle='--', alpha=0.1)
 
 ax4 = fig.add_subplot(gs[2, 0:2])
-ax4.set_facecolor('#1e293b')
-sns.scatterplot(data=labeled_df, x='Age', y='MonthlyIncome', hue='Attrition', style='OverTime', palette=['#38bdf8', '#f43f5e'], alpha=0.8, ax=ax4)
-ax4.set_title("Age vs Monthly Income Scatter Analysis (Target: Attrition & OverTime)", color='#f8fafc', fontsize=11, fontweight='bold', pad=10)
-ax4.set_xlabel("Employee Age", color='#94a3b8', fontsize=9)
-ax4.set_ylabel("Monthly Income ($)", color='#94a3b8', fontsize=9)
-ax4.tick_params(colors='#94a3b8', labelsize=8)
-ax4.legend(facecolor='#0f172a', edgecolor='none', labelcolor='#f8fafc', fontsize=8, loc='upper left')
-ax4.grid(linestyle='--', alpha=0.2)
+ax4.set_facecolor(theme_cfg["card"])
+sns.scatterplot(data=labeled_df, x='Age', y='MonthlyIncome', hue='Attrition', style='OverTime', palette=[theme_cfg["palette"][0], '#f43f5e'], alpha=0.8, ax=ax4)
+ax4.set_title("Age vs Monthly Income Scatter Analysis (Target: Attrition & OverTime)", color=theme_cfg["text"], fontsize=11, fontweight='bold', pad=10)
+ax4.set_xlabel("Employee Age", color=theme_cfg["muted"], fontsize=9)
+ax4.set_ylabel("Monthly Income ($)", color=theme_cfg["muted"], fontsize=9)
+ax4.tick_params(colors=theme_cfg["muted"], labelsize=8)
+ax4.legend(facecolor=theme_cfg["bg"], edgecolor='none', labelcolor=theme_cfg["text"], fontsize=8, loc='upper left')
+ax4.grid(linestyle='--', alpha=0.1)
 
 ax5 = fig.add_subplot(gs[2, 2])
-ax5.set_facecolor('#1e293b')
+ax5.set_facecolor(theme_cfg["card"])
 ax5.axis('off')
-ax5.text(0.05, 0.88, "STRATEGIC RECOMMENDATIONS", color='#38bdf8', fontsize=11, fontweight='bold')
+ax5.text(0.05, 0.88, "STRATEGIC RECOMMENDATIONS", color=theme_cfg["accent"], fontsize=11, fontweight='bold')
 recs = [
     "1. OverTime Regulation:\n   Limit mandatory overtime; high OT drives\n   3x higher attrition rate (30.5%).",
     "2. Entry Level Compensation:\n   Adjust Monthly Income for Job Level 1-2;\n   low salary correlates with high departures.",
@@ -161,7 +228,7 @@ recs = [
     "4. Predictive Monitoring:\n   Deploy ML model (prediction.py) to flag\n   flight-risk employees proactively."
 ]
 for i, rec in enumerate(recs):
-    ax5.text(0.05, 0.70 - (i * 0.20), rec, color='#f8fafc', fontsize=8.5, va='top')
+    ax5.text(0.05, 0.70 - (i * 0.20), rec, color=theme_cfg["text"], fontsize=8.5, va='top')
 
 plt.savefig(DASHBOARD_PATH, dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
 plt.close()
@@ -268,9 +335,9 @@ cells = []
 
 cells.append(nbf.v4.new_markdown_cell("""# Proyek Akhir Data Science: Menyelesaikan Permasalahan HR Attrition (PT Jaya Jaya Maju)
 
-**Nama**: William  
-**Email**: developer@mail.com  
-**ID Dicoding**: zyvoir  
+**Nama**: {username}  
+**Email**: {username.lower()}@dicoding-student.com  
+**ID Dicoding**: {username.lower()}_capstone  
 
 ---
 
@@ -503,7 +570,7 @@ PT Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang berdiri sej
 
 ### Cakupan Proyek
 - Exploratory Data Analysis (EDA) pada dataset karyawan Jaya Jaya Maju (Univariate & Multivariate).
-- Pengembangan Business Dashboard eksekutif (`William_dicoding-dashboard.png` dan Metabase Instance `metabase.db.mv.db`).
+- Pengembangan Business Dashboard eksekutif (`{username}_dicoding-dashboard.png` dan Metabase Instance `metabase.db.mv.db`).
 - Pelatihan model Machine Learning (*Random Forest Classifier*) dan penyimpanan artefak model (`model/attrition_model.pkl`).
 - Pembuatan script inferensi mandiri (`prediction.py`).
 - Penyusunan dokumentasi dan rekomendasi bisnis strategis.
@@ -590,7 +657,7 @@ Proyek ini menyediakan berkas database Metabase (`metabase.db.mv.db`) yang telah
 
 ## Business Dashboard Summary
 
-Dashboard eksekutif (`William_dicoding-dashboard.png`) menyajikan gambaran menyeluruh terkait indikator kinerja HR dan faktor risiko utama:
+Dashboard eksekutif (`{username}_dicoding-dashboard.png`) menyajikan gambaran menyeluruh terkait indikator kinerja HR dan faktor risiko utama:
 
 1. **KPI Utama**:
    - **Total Karyawan**: 1.470 karyawan

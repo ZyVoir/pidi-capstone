@@ -11,7 +11,7 @@ PT Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang berdiri sej
 
 ### Cakupan Proyek
 - Exploratory Data Analysis (EDA) pada dataset karyawan Jaya Jaya Maju (Univariate & Multivariate).
-- Pengembangan Business Dashboard eksekutif (`William_dicoding-dashboard.png` dan Metabase Instance `metabase.db.mv.db`).
+- Pengembangan Business Dashboard eksekutif (`testuser_dicoding-dashboard.png` dan Metabase Instance `metabase.db.mv.db`).
 - Pelatihan model Machine Learning (*Random Forest Classifier*) dan penyimpanan artefak model (`model/attrition_model.pkl`).
 - Pembuatan script inferensi mandiri (`prediction.py`).
 - Penyusunan dokumentasi dan rekomendasi bisnis strategis.
@@ -98,7 +98,7 @@ Proyek ini menyediakan berkas database Metabase (`metabase.db.mv.db`) yang telah
 
 ## Business Dashboard Summary
 
-Dashboard eksekutif (`William_dicoding-dashboard.png`) menyajikan gambaran menyeluruh terkait indikator kinerja HR dan faktor risiko utama:
+Dashboard eksekutif (`testuser_dicoding-dashboard.png`) menyajikan gambaran menyeluruh terkait indikator kinerja HR dan faktor risiko utama:
 
 1. **KPI Utama**:
    - **Total Karyawan**: 1.470 karyawan
