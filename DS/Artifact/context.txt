@@ -1,0 +1,112 @@
+# Submission Pertama: Menyelesaikan Permasalahan Human Resources
+
+## Pengantar
+Selamat! Akhirnya Anda telah sampai di Proyek Pertama dari kelas ini. Sejauh ini, Anda telah mengerjakan beberapa studi kasus tentang data science yang umum dijumpai di industri. Good job!
+
+Nah, untuk dapat lanjut ke modul berikutnya, Anda harus mengirimkan submission Proyek Pertama: Menyelesaikan Permasalahan departemen Human Resources (HR). Pada proyek pertama ini, Anda perlu membuat business dashboard untuk membantu departemen HR. Agar lebih memahami proyek ini, mari simak background story dari proyek ini terlebih dahulu.
+
+> **Peringatan!**
+> Skenario dalam proyek ini hanyalah fiktif belaka. Apabila terdapat kesamaan nama tokoh, perusahaan, ataupun produk, itu adalah kebetulan semata dan tidak ada unsur kesengajaan.
+
+---
+
+## Background
+Jaya Jaya Maju merupakan salah satu perusahaan multinasional yang telah berdiri sejak tahun 2000. Ia memiliki lebih dari 1000 karyawan yang tersebar di seluruh penjuru negeri.
+
+Walaupun telah menjadi perusahaan yang cukup besar, Jaya Jaya Maju masih cukup kesulitan dalam mengelola karyawan. Hal ini berimbas tingginya **attrition rate** (rasio jumlah karyawan yang keluar dengan total karyawan keseluruhan) hingga **lebih dari 10%**.
+
+Untuk mencegah hal ini semakin parah, manajer departemen HR ingin meminta bantuan Anda mengidentifikasi berbagai faktor yang mempengaruhi tingginya attrition rate tersebut. Selain itu, ia juga meminta Anda untuk membuat business dashboard untuk membantunya memonitori berbagai faktor tersebut.
+
+* **Dataset Target**: [Employee Dataset (GitHub)](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee)
+
+---
+
+## Kriteria Submission
+
+Terdapat **3 kriteria utama** yang harus Anda penuhi:
+
+### Kriteria 1: Menggunakan Templat Proyek yang Telah Disediakan
+* Jalankan proyek data science menggunakan template proyek yang telah disediakan: [Template Proyek Pertama (GitHub)](https://github.com/dicodingacademy/a590-Belajar-Penerapan-Data-Science/tree/a590_proyek_pertama/a590_proyek_pertama).
+* Lengkapi dokumen Markdown (`.md`).
+
+### Kriteria 2: Menjalankan Seluruh Proses dalam Proyek Data Science
+* Lakukan seluruh proses proyek data science mulai dari *Business Understanding* hingga *Deployment* (cukup di-deploy secara lokal).
+* Dokumentasikan seluruh tahapan dengan rapi pada templat proyek.
+* *Catatan*: Tahap modeling, evaluation, dan deployment hanya dilakukan jika Anda membuat model machine learning.
+* Sertakan **kesimpulan / conclusion** pada berkas Markdown (`.md`) sebagai jawaban dari permasalahan departemen HR.
+
+### Kriteria 3: Membuat Minimal Satu Business Dashboard
+* Buat minimal 1 business dashboard untuk membantu departemen HR memahami data & memonitor faktor penyebab attrition rate tinggi.
+* Tool utama: **Metabase**. Sertakan username dan password pada berkas Markdown (`.md`) (atau gunakan alternatif email `root@mail.com` / password `root123`).
+* Ekspor dashboard beserta database instance container Metabase dengan command:
+  ```bash
+  docker cp metabase:/metabase.db/metabase.db.mv.db ./
+  ```
+* Alternatif tool lain: **Tableau Public** (`https://public.tableau.com/app`) atau **Looker Studio** (`https://datastudio.google.com/u/0/navigation/reporting`). Jika menggunakan kedua tools ini, pastikan menyertakan link akses publik dashboard.
+* *Ketentuan Dashboard*:
+  - Dashboard **tidak valid** jika hanya berupa tabel data tanpa visualisasi yang mudah dipahami.
+  - Dashboard **tidak valid** jika tidak menampilkan faktor yang mempengaruhi tingginya attrition rate.
+  - Dashboard harus dapat diakses oleh reviewer.
+
+---
+
+## Penilaian & Bintang (Rating 1 - 5)
+
+Submission dinilai dengan skala bintang 1–5. Untuk mendapat bintang tinggi, terapkan saran tambahan berikut:
+
+1. **Saran 1 (Video)**: Buat video singkat (maks. 5 menit) menjelaskan:
+   - Business dashboard yang telah dibuat.
+   - Kesimpulan/conclusion dari dashboard.
+   - Rekomendasi action items bagi perusahaan.
+2. **Saran 2 (Visualisasi & Action Items)**: Membuat visualisasi data yang baik dan efektif menerapkan prinsip desain & integritas, serta melengkapi bagian *Rekomendasi Action Items* di berkas Markdown (`.md`).
+3. **Saran 3 (Model Machine Learning)**: Membuat model machine learning untuk membantu departemen HR beserta script Python sederhana (`prediction.py`) untuk menjalankan proses prediksi (beserta petunjuk penggunaan di Markdown).
+
+### Skema Bintang:
+* **Bintang 1**: Ketentuan wajib terpenuhi, namun ada indikasi kecurangan/plagiasi.
+* **Bintang 2**: Ketentuan wajib terpenuhi, tanpa menerapkan saran.
+* **Bintang 3**: Ketentuan wajib terpenuhi + minimal 1 saran.
+* **Bintang 4**: Ketentuan wajib terpenuhi + minimal 2 saran.
+* **Bintang 5**: Ketentuan wajib terpenuhi + menerapkan **semua saran**.
+
+*Catatan*: Jika submission **ditolak**, tidak ada penilaian bintang.
+
+---
+
+## Tips & Cheat Sheets
+* [Pandas Cheat Sheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+* [Matplotlib Cheat Sheet](https://matplotlib.org/cheatsheets/_images/cheatsheets-1.png)
+* [Seaborn Cheat Sheet](https://www.kaggle.com/code/themlphdstudent/cheat-sheet-seaborn-charts)
+* [Tableau Cheat Sheet](https://towardsdatascience.com/the-ultimate-cheat-sheet-on-tableau-charts-642bca94dde5)
+* [Mastering Markdown (GitHub Guides)](https://guides.github.com/features/mastering-markdown/)
+
+---
+
+## Ketentuan Pengiriman Submission
+
+Kirimkan folder proyek akhir dalam format **ZIP** berisi:
+1. Berkas Jupyter Notebook / Colab Notebook (`.ipynb`) yang sudah dijalankan.
+2. Berkas `requirements.txt` (contoh: [contoh_requirements.txt](https://github.com/dicodingacademy/a590_proyek_akhir/blob/main/contoh_requirements.txt)).
+3. Berkas Markdown (`.md`) dokumentasi & action items.
+4. Screenshot business dashboard: `username_dicoding-dashboard` (format JPG/JPEG/PNG).
+5. Berkas database `metabase.db.mv.db` (jika menggunakan Metabase).
+6. Berkas Video: `username_dicoding-video` (jika menerapkan Saran 1).
+7. Berkas script Python (`.py`) & model machine learning (jika menerapkan Saran 3).
+
+### Struktur Direktori Disarankan:
+```
+submission/
+├── model/
+├── notebook.ipynb
+├── prediction.py
+├── README.md
+├── username_dicoding-dashboard.png
+├── username_dicoding-video.mp4
+├── metabase.db.mv.db
+└── requirements.txt
+```
+
+### Kriteria Penolakan:
+* Kriteria wajib tidak terpenuhi.
+* Format/berkas submission tidak lengkap.
+* Plagiarisme / kecurangan.
+* Forum Diskusi: [Dicoding Discussion Forum](https://www.dicoding.com/academies/590/discussions)
