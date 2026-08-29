@@ -57,21 +57,61 @@ To invoke the ATM skill, prompt the assistant with commands like:
 
 ---
 
-## 🛠️ Getting Started
+## 🛠️ Beginner's Guide: How to Use this Repo
 
-To run or evaluate individual submissions:
+If you are a beginner looking to submit your Dicoding Capstone projects or customize them, follow this simple guide.
+
+### 1. What to Submit to Dicoding?
+To pass the review, you must upload the **`submission.zip`** file located inside the respective project folders:
+- **For Submission 1 (HR Attrition)**: Upload [`DS/submission-1/submission.zip`](./DS/submission-1/submission.zip)
+- **For Submission 2 (Final Student Performance)**: Upload [`DS/submission-final/submission.zip`](./DS/submission-final/submission.zip)
+
+These zip files already contain everything (code, model, executed notebooks, database instance, requirements, and dashboard screenshot) with the default name **`William`** and are fully ready to submit.
+
+---
+
+### 2. How to Customize with the ATM Skill (For AI Assistants)
+If you want to customize the project with your own name, custom wording, and a unique visual style (so your submission looks different from everyone else's), you can use the **ATM Skill** with an AI coding assistant.
+
+#### How to Prompt the AI Assistant:
+Open this repository in your AI coding assistant (like Gemini Antigravity) and send a prompt like this:
+> *"I want to generate a new submission for the final capstone. Please run the ATM skill. Use the name '**[Your Name Here]**' and style preference '**[Pastel / Earthy / Synthwave / Nordic / Dark]**'."*
+
+#### What to Expect:
+When you prompt the AI with this:
+1. The assistant will ask you for confirmation of your **Username** and **Styling Preference**.
+2. It will run the build scripts (`build_submission_v2.py` or `build_submission_final.py`) with your inputs.
+3. The script will automatically:
+   - Generate a custom dashboard screenshot (`[YourName]_dicoding-dashboard.png`) using the custom colors of your selected style theme.
+   - Generate a custom Jupyter notebook (`notebook.ipynb`) and documentation (`README.md`) labeled with your name.
+   - Run the machine learning pipeline and save the model.
+   - Re-execute the Jupyter notebook programmatically to save all cell outputs.
+   - Package all customized files into a fresh **`submission.zip`** ready for you to download and submit!
+
+---
+
+### 3. How to Run Locally (Manual Setup)
+
+If you want to manually run the scripts or start the web applications on your computer:
 
 ```bash
 # Clone the repository
 git clone https://github.com/ZyVoir/pidi-capstone.git
 cd pidi-capstone
 
-# Navigate to DS Submission 1
-cd DS/submission-1/submission
+# Navigate to the submission directory (e.g. final submission)
+cd DS/submission-final/submission
+
+# Create a virtual environment and activate it
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Run inference script
-python3 prediction.py
+# Run the Streamlit web app
+streamlit run app.py
+
+# Or regenerate the submission with custom parameters manually:
+python3 build_submission_final.py --username "Alex" --theme "pastel"
 ```
