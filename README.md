@@ -14,7 +14,8 @@ pidi-capstone/
 │   └── submission-1/            # Submission 1: HR Attrition Analysis & Business Dashboard
 │       ├── Artifact/            # Reference context and guidelines
 │       ├── submission/          # Submission source code, model, notebook & dashboard visual
-│       └── submission.zip       # Final submission archive
+│       ├── submission.zip       # Final submission archive
+│       └── README.md            # ← Submission 1 overview & quick start
 ├── ML/                          # (Planned) Machine Learning Track
 └── .agents/
     └── skills/
@@ -26,8 +27,8 @@ pidi-capstone/
 ## 🚀 Track Roadmap & Future Submissions
 
 ### 1. Data Science Track (`DS/`)
-* **Submission 1 (`DS/submission-1/`)**: First project submission covering exploratory data analysis (EDA), executive business dashboard creation (`William_dicoding-dashboard.png`), machine learning risk modeling (`prediction.py`), and documentation.
-* **Submission 2 / Final Submission**: Upcoming final submission for the Data Science module, which will be organized as a subsequent submission folder under `DS/`.
+* **[Submission 1 — HR Attrition](./DS/submission-1/README.md)** (`DS/submission-1/`): Covers EDA, executive business dashboard (`William_dicoding-dashboard.png`), Metabase instance (`metabase.db.mv.db`), machine learning risk model (`prediction.py`), and full documentation. → [View Details](./DS/submission-1/README.md)
+* **Submission 2 / Final Submission**: Upcoming final submission for the Data Science module, organized as a subsequent folder under `DS/`.
 
 ### 2. Machine Learning Track (`ML/`)
 * **Future Expansion**: Open possibility to add a dedicated `ML/` directory for pure Machine Learning capstone modules.
