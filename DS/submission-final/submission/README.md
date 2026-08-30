@@ -70,14 +70,15 @@ Proyek ini menyediakan berkas database Metabase (`metabase.db.mv.db`) yang telah
    docker run -d -p 3000:3000 --name metabase metabase/metabase:v0.46.4
    ```
 
-2. **Salin File Database `metabase.db.mv.db` ke Dalam Container**:
-   Salin berkas instance `metabase.db.mv.db` yang terdapat di direktori submission ini ke dalam container Metabase:
+2. **Salin File Database & SQLite ke Dalam Container**:
+   Salin berkas instance Metabase H2 (`metabase.db.mv.db`) dan data SQLite (`students.db`) yang terdapat di direktori ini ke dalam folder `/metabase.db/` pada container Metabase:
    ```bash
    docker cp metabase.db.mv.db metabase:/metabase.db/metabase.db.mv.db
+   docker cp students.db metabase:/metabase.db/students.db
    ```
 
 3. **Restart Container Metabase**:
-   Restart container agar Metabase memuat file database yang baru disalin:
+   Restart container agar Metabase memuat file konfigurasi dan data SQLite yang baru disalin:
    ```bash
    docker restart metabase
    ```

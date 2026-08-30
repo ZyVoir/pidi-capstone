@@ -390,58 +390,62 @@ with col2:
         
         input_df = pd.DataFrame([features])[feature_order]
         
-        # Predict class (1 = Dropout, 0 = Graduate)
-        pred_class = int(model.predict(input_df)[0])
-        pred_proba = model.predict_proba(input_df)[0]
-        
-        # Output prediction card
-        if pred_class == 1:
-            st.error(f"### Predicted Status: ⚠️ **DROPOUT**")
-            st.markdown(\"\"\"
-            This student has a high likelihood of dropping out. **Immediate academic coaching** or counseling is recommended.
-            \"\"\")
-        else:
-            st.success(f"### Predicted Status: ✅ **GRADUATE**")
-            st.markdown(\"\"\"
-            This student is predicted to successfully complete their degree. Keep up the great work!
-            \"\"\")
+        # Add prediction button as requested by reviewer
+        if st.button("🔮 Predict Student Status", type="primary"):
+            # Predict class (1 = Dropout, 0 = Graduate)
+            pred_class = int(model.predict(input_df)[0])
+            pred_proba = model.predict_proba(input_df)[0]
             
-        # Display probabilities
-        st.write("---")
-        st.write("#### 📊 Prediction Probability Distribution:")
-        
-        col_lbl1, col_val1 = st.columns([1, 4])
-        with col_lbl1:
-            st.write("**Graduate**")
-        with col_val1:
-            st.progress(float(pred_proba[0]))
-            st.write(f"{pred_proba[0] * 100:.1f}%")
-
-        col_lbl2, col_val2 = st.columns([1, 4])
-        with col_lbl2:
-            st.write("**Dropout**")
-        with col_val2:
-            st.progress(float(pred_proba[1]))
-            st.write(f"{pred_proba[1] * 100:.1f}%")
+            # Output prediction card
+            if pred_class == 1:
+                st.error(f"### Predicted Status: ⚠️ **DROPOUT**")
+                st.markdown(\"\"\"
+                This student has a high likelihood of dropping out. **Immediate academic coaching** or counseling is recommended.
+                \"\"\")
+            else:
+                st.success(f"### Predicted Status: ✅ **GRADUATE**")
+                st.markdown(\"\"\"
+                This student is predicted to successfully complete their degree. Keep up the great work!
+                \"\"\")
                 
-        # Risk factors warning
-        st.write("---")
-        st.write("#### 🔍 Critical Risk Indicators:")
-        risks = []
-        if tuition_val == 0:
-            risks.append("- **Outstanding Tuition Fees**: Students with unpaid tuition have significantly higher dropout rates.")
-        if debtor_val == 1:
-            risks.append("- **Outstanding Financial Debt**: Financial liabilities increase pressure on student retention.")
-        if sem2_approved < 4:
-            risks.append("- **Low 2nd Semester Performance**: Passing less than 4 subjects in the 2nd semester is a strong predictor of dropout.")
-        if scholarship_val == 0 and age > 25:
-            risks.append("- **Adult Student without Scholarship**: Older students without financial support are at higher risk of leaving.")
+            # Display probabilities
+            st.write("---")
+            st.write("#### 📊 Prediction Probability Distribution:")
             
-        if risks:
-            for r in risks:
-                st.write(r)
+            col_lbl1, col_val1 = st.columns([1, 4])
+            with col_lbl1:
+                st.write("**Graduate**")
+            with col_val1:
+                st.progress(float(pred_proba[0]))
+                st.write(f"{pred_proba[0] * 100:.1f}%")
+
+            col_lbl2, col_val2 = st.columns([1, 4])
+            with col_lbl2:
+                st.write("**Dropout**")
+            with col_val2:
+                st.progress(float(pred_proba[1]))
+                st.write(f"{pred_proba[1] * 100:.1f}%")
+                    
+            # Risk factors warning
+            st.write("---")
+            st.write("#### 🔍 Critical Risk Indicators:")
+            risks = []
+            if tuition_val == 0:
+                risks.append("- **Outstanding Tuition Fees**: Students with unpaid tuition have significantly higher dropout rates.")
+            if debtor_val == 1:
+                risks.append("- **Outstanding Financial Debt**: Financial liabilities increase pressure on student retention.")
+            if sem2_approved < 4:
+                risks.append("- **Low 2nd Semester Performance**: Passing less than 4 subjects in the 2nd semester is a strong predictor of dropout.")
+            if scholarship_val == 0 and age > 25:
+                risks.append("- **Adult Student without Scholarship**: Older students without financial support are at higher risk of leaving.")
+                
+            if risks:
+                for r in risks:
+                    st.write(r)
+            else:
+                st.write("✨ No immediate critical risk indicators found. Student has a strong demographic & economic baseline.")
         else:
-            st.write("✨ No immediate critical risk indicators found. Student has a strong demographic & economic baseline.")
+            st.info("💡 Adjust the student profile parameters on the left and click **'Predict Student Status'** to run the prediction model.")
 
 # Sidebar info
 st.sidebar.title("Information Panel")
@@ -747,14 +751,15 @@ Proyek ini menyediakan berkas database Metabase (`metabase.db.mv.db`) yang telah
    docker run -d -p 3000:3000 --name metabase metabase/metabase:v0.46.4
    ```
 
-2. **Salin File Database `metabase.db.mv.db` ke Dalam Container**:
-   Salin berkas instance `metabase.db.mv.db` yang terdapat di direktori submission ini ke dalam container Metabase:
+2. **Salin File Database & SQLite ke Dalam Container**:
+   Salin berkas instance Metabase H2 (`metabase.db.mv.db`) dan data SQLite (`students.db`) yang terdapat di direktori ini ke dalam folder `/metabase.db/` pada container Metabase:
    ```bash
    docker cp metabase.db.mv.db metabase:/metabase.db/metabase.db.mv.db
+   docker cp students.db metabase:/metabase.db/students.db
    ```
 
 3. **Restart Container Metabase**:
-   Restart container agar Metabase memuat file database yang baru disalin:
+   Restart container agar Metabase memuat file konfigurasi dan data SQLite yang baru disalin:
    ```bash
    docker restart metabase
    ```

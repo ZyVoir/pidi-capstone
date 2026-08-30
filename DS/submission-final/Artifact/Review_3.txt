@@ -1,0 +1,16 @@
+Terimakasih telah mengirimkan tugas Submission Akhir: Menyelesaikan Permasalahan Institusi Pendidikan. Setelah kami bedah dan telisik secara komprehensif, ternyata ada kriteria wajib yang masih belum Anda penuhi.
+Berikut beberapa catatan dari kami untuk memperbaiki proyek Anda.
+
+Kriteria: Membuat Minimal Satu Dashboard
+Belum ada perbaikan dari catatan review sebelumnya. Screenshot dashboard yang kamu lampirkan tampaknya bukan berasal dari platform Metabase. Silakan lampirkan screenshot dashboard yang benar-benar dibuat dan ditampilkan melalui Metabase sebagai bukti bahwa dashboard telah berhasil dibuat sesuai kriteria. Screenshot harus menampilkan antarmuka Metabase secara jelas sehingga dapat diverifikasi bahwa dashboard tersebut memang dibuat menggunakan platform Metabase.
+Tidak diperkenankan menggunakan gambar hasil generate AI, mockup, atau gambar yang telah dimanipulasi sebagai pengganti screenshot dashboard dari Metabase.
+Pastikan screenshot menampilkan dashboard beserta visualisasi/data yang relevan dengan proyek agar hasil implementasi dapat dinilai dengan jelas.
+Tampilan dashboard metabase mu saat ini: [Ada error 'There was a problem displaying this chart' pada kartu visualisasi]
+Silakan perbaiki terlebih dahulu, ya. Pastikan instruksi yang dituliskan jelas, lengkap, dan dapat direproduksi sehingga reviewer dapat mengikuti langkah-langkah tersebut untuk menjalankan dan menampilkan dashboard Metabase yang kamu buat.
+
+Kriteria: Membuat Minimal Satu Solusi Machine Learning yang Siap Digunakan
+Prototype machine learning berbasis Streamlit yang dibuat belum memiliki tombol prediksi (seperti st.button('Prediksi')). Hal ini membuat pengguna tidak dapat memicu proses inferensi model secara interaktif saat memasukkan atau mengubah data input.
+Saran Perbaikan: Silakan lakukan perbaikan dengan menambahkan komponen tombol interaktif menggunakan fungsi st.button() pada antarmuka Streamlit Anda. Bungkus alur pemrosesan data input dan fungsi model.predict() di dalam kondisi tombol tersebut, sehingga hasil prediksi akan diproses dan ditampilkan ketika tombol diklik oleh pengguna.
+
+Silakan perbaiki terlebih dahulu proyek Anda dengan mengikuti catatan di atas untuk bisa lulus dari tugas submission ini. Tetap semangat! Jangan lupa untuk segera submit kembali, ya. Kami tunggu.
+Jika Ada pertanyaan, silakan tanyakan pada forum academy discussion (https://www.dicoding.com/academies/590/discussions). Dengan senang hati kami akan membantu Anda.
