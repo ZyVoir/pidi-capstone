@@ -210,7 +210,10 @@ for bar in bars:
 ax5.grid(axis='y', linestyle='--', alpha=0.1)
 
 dashboard_img_path = os.path.join(SUBMISSION_DIR, f"{username}_dicoding-dashboard.png")
-plt.savefig(dashboard_img_path, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
+if os.path.exists(dashboard_img_path):
+    print(f"File {dashboard_img_path} already exists. Skipping matplotlib save to preserve the real Metabase dashboard screenshot.")
+else:
+    plt.savefig(dashboard_img_path, dpi=150, bbox_inches='tight', facecolor=fig.get_facecolor())
 plt.close()
 
 # Save the trained model
