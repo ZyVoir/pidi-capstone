@@ -1,7 +1,7 @@
 # Submission Final: Menyelesaikan Permasalahan Institusi Pendidikan — Jaya Jaya Institut
 
 > **Course**: Belajar Penerapan Data Science — Dicoding Indonesia  
-> **Status**: Completed (Ready for review)
+> **Status**: Approved / Sudah di-approve
 
 ---
 

@@ -31,7 +31,7 @@ pidi-capstone/
 
 ### 1. Data Science Track (`DS/`)
 * **[Submission 1 — HR Attrition (Approved/Lulus)](./DS/submission-1/README.md)** (`DS/submission-1/`): Covers EDA, executive business dashboard (`William_dicoding-dashboard.png`), Metabase instance (`metabase.db.mv.db`), machine learning risk model (`prediction.py`), and full documentation. [Status: Approved / Sudah di-approve] → [View Details](./DS/submission-1/README.md)
-* **[Submission 2 — Student Dropout (Final Submission)](./DS/submission-final/README.md)** (`DS/submission-final/`): Covers full EDA, Metabase dashboard (`William_dicoding-dashboard.png`), database instance (`metabase.db.mv.db`, `students.db`), Streamlit app (`app.py`), Random Forest model (`student_model.pkl`), and actionable recommendations. [Status: Completed / Ready for review] → [View Details](./DS/submission-final/README.md)
+* **[Submission 2 — Student Dropout (Final Submission)](./DS/submission-final/README.md)** (`DS/submission-final/`): Covers full EDA, Metabase dashboard (`William_dicoding-dashboard.png`), database instance (`metabase.db.mv.db`, `students.db`), Streamlit app (`app.py`), Random Forest model (`student_model.pkl`), and actionable recommendations. [Status: Approved / Sudah di-approve] → [View Details](./DS/submission-final/README.md)
 
 ### 2. Machine Learning Track (`ML/`)
 * **Future Expansion**: Open possibility to add a dedicated `ML/` directory for pure Machine Learning capstone modules.
