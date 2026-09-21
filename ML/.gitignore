@@ -1,0 +1,16 @@
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# MovieLens dataset — the notebook downloads it from files.grouplens.org on first run.
+# Only a by-product of executing the notebook; never part of the 3-file deliverable.
+submission-final/submission/ml-latest-small/
+submission-final/submission/ml-latest-small.zip
+
+# UCI credit-default dataset — same: fetched on demand by the notebook.
+submission-1/credit_default.csv
+submission-1/work/uci350.zip
+submission-1/work/credit_default.csv
+submission-1/work/credit_default_model.joblib
+
+# Raw dataset archive extracted by the notebook — regenerable from the UCI URL.
+submission-1/work/default of credit card clients.xls

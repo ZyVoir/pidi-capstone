@@ -19,7 +19,17 @@ pidi-capstone/
 │       ├── submission/          # Code, model, notebook, database & Streamlit app
 │       ├── submission.zip       # Final submission ZIP archive
 │       └── README.md            # ← Final submission overview & quick start
-├── ML/                          # (Planned) Machine Learning Track
+├── ML/                          # Machine Learning Track
+│   ├── submission-1/            # Submission 1: Predictive Analytics (Approved)
+│   │   ├── submission/
+│   │   ├── submission.zip
+│   │   ├── IMPLEMENTATION.md    # Spec analysis & rubric notes
+│   │   └── README.md
+│   └── submission-final/        # Submission Final: Sistem Rekomendasi
+│       ├── submission/          # notebook.ipynb, notebook.py, laporan .md
+│       ├── submission.zip       # Final submission ZIP archive (3 files)
+│       ├── work/                # Build script & results.json
+│       └── README.md
 └── .agents/
     └── skills/
         └── atm/                 # ATM (Amati, Tiru, Modifikasi) Workflow Skill
@@ -34,7 +44,8 @@ pidi-capstone/
 * **[Submission 2 — Student Dropout (Final Submission)](./DS/submission-final/README.md)** (`DS/submission-final/`): Covers full EDA, Metabase dashboard (`William_dicoding-dashboard.png`), database instance (`metabase.db.mv.db`, `students.db`), Streamlit app (`app.py`), Random Forest model (`student_model.pkl`), and actionable recommendations. [Status: Approved / Sudah di-approve] → [View Details](./DS/submission-final/README.md)
 
 ### 2. Machine Learning Track (`ML/`)
-* **Future Expansion**: Open possibility to add a dedicated `ML/` directory for pure Machine Learning capstone modules.
+* **[Submission 1 — Predictive Analytics (Approved / Sudah di-approve)](./ML/submission-1/README.md)** (`ML/submission-1/`): Credit-default risk classifier (UCI, 30,000 samples). Three algorithms compared with `GridSearchCV` tuning; Gradient Boosting selected at ROC-AUC 0.7820. [Status: Approved / Sudah di-approve] → [View Details](./ML/submission-1/README.md)
+* **[Submission Final — Sistem Rekomendasi (Final Submission)](./ML/submission-final/README.md)** (`ML/submission-final/`): Movie recommender on MovieLens Latest Small, implementing both Content-Based Filtering (TF-IDF + cosine) and Collaborative Filtering (truncated SVD), with top-N output and RMSE/MAE/Precision@10 evaluation against a popularity baseline. [Status: Approved / Sudah di-approve] → [View Details](./ML/submission-final/README.md)
 * **Contribution Workflow**: Any new ML track features or submissions should be developed in a feature branch and submitted via **Pull Request (PR)** before merging into `main`.
 
 ---

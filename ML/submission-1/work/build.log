@@ -1,0 +1,15 @@
+[1/5] notebook.ipynb ditulis (26 sel)
+[2/5] notebook.py ditulis
+[3/5] menjalankan notebook (ini butuh beberapa menit)...
+      17 sel kode dieksekusi tanpa error
+      hasil terbaca: model terbaik = Gradient Boosting
+[4/5] menyusun laporan Markdown...
+      Laporan Proyek Machine Learning - William.md ditulis (23,659 karakter)
+[5/5] mengemas submission.zip...
+      /Users/zyvoir/Documents/PIDI/Capstone/ML/submission-1/submission.zip
+      isi arsip:
+        - notebook.ipynb (612,615 bytes)
+        - notebook.py (41,267 bytes)
+        - Laporan Proyek Machine Learning - William.md (23,742 bytes)
+
+SELESAI.

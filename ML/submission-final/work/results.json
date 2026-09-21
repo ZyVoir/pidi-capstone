@@ -1,0 +1,121 @@
+{
+  "dataset": {
+    "n_ratings_raw": 100836,
+    "n_users_raw": 610,
+    "n_movies_raw": 9724,
+    "n_ratings": 90274,
+    "n_users": 610,
+    "n_movies": 3650,
+    "density_pct": 3.24,
+    "train_size": 72219,
+    "test_size": 18055,
+    "global_mean": 3.5391,
+    "min_rating_filter": 5,
+    "n_genres": 20,
+    "k_factors": 50,
+    "k_neighbors": 30,
+    "n_eval_users": 595,
+    "top10_share": 60.0,
+    "random_state": 42
+  },
+  "rating_dist": {
+    "0.5": 1370,
+    "1.0": 2811,
+    "1.5": 1791,
+    "2.0": 7551,
+    "2.5": 5550,
+    "3.0": 20047,
+    "3.5": 13136,
+    "4.0": 26818,
+    "4.5": 8551,
+    "5.0": 13211
+  },
+  "genre_counts": {
+    "Drama": 4361,
+    "Comedy": 3756,
+    "Thriller": 1894,
+    "Action": 1828,
+    "Romance": 1596,
+    "Adventure": 1263,
+    "Crime": 1199,
+    "Sci-Fi": 980,
+    "Horror": 978,
+    "Fantasy": 779,
+    "Children": 664,
+    "Animation": 611,
+    "Mystery": 573,
+    "Documentary": 440,
+    "War": 382,
+    "Musical": 334,
+    "Western": 167,
+    "IMAX": 158,
+    "Film-Noir": 87,
+    "(no genres listed)": 34
+  },
+  "genre_mean_rating": {
+    "Horror": 3.258,
+    "Comedy": 3.385,
+    "Children": 3.413,
+    "Action": 3.448,
+    "Sci-Fi": 3.456,
+    "(no genres listed)": 3.489,
+    "Fantasy": 3.491,
+    "Thriller": 3.494,
+    "Romance": 3.507,
+    "Adventure": 3.509,
+    "Musical": 3.564,
+    "Western": 3.584,
+    "IMAX": 3.618,
+    "Animation": 3.63,
+    "Mystery": 3.632,
+    "Drama": 3.656,
+    "Crime": 3.658,
+    "Documentary": 3.798,
+    "War": 3.808,
+    "Film-Noir": 3.92
+  },
+  "baseline": {
+    "RMSE": 1.0274761982234377,
+    "MAE": 0.8145620170078006,
+    "Precision@10": 0.12016806722689076
+  },
+  "metrics": {
+    "Content-Based Filtering": {
+      "RMSE": 0.8502193496241431,
+      "MAE": 0.6457721620881925,
+      "Precision@10": 0.02890756302521008
+    },
+    "Collaborative Filtering (SVD)": {
+      "RMSE": 0.917275290630998,
+      "MAE": 0.7062309303151787,
+      "Precision@10": 0.11831932773109245
+    }
+  },
+  "best_model": "Content-Based Filtering",
+  "sample_user": 1,
+  "sample_recs_cbf": [
+    "Anastasia (1997)",
+    "Pocahontas (1995)",
+    "Hunchback of Notre Dame, The (1996)",
+    "Sleeping Beauty (1959)",
+    "Ratatouille (2007)",
+    "Fox and the Hound, The (1981)",
+    "Snow White and the Seven Dwarfs (1937)",
+    "Prince of Egypt, The (1998)",
+    "Persepolis (2007)",
+    "Lion King, The (1994)"
+  ],
+  "sample_recs_cf": [
+    "Lord of the Rings: The Two Towers, The (2002)",
+    "Lord of the Rings: The Fellowship of the Ring, The (2001)",
+    "Big (1988)",
+    "Christmas Story, A (1983)",
+    "Austin Powers: International Man of Mystery (1997)",
+    "Lord of the Rings: The Return of the King, The (2003)",
+    "Godfather: Part II, The (1974)",
+    "Snatch (2000)",
+    "Godfather, The (1972)",
+    "Blade Runner (1982)"
+  ],
+  "sample_overlap": 0
+}
